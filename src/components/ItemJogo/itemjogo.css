@@ -1,0 +1,13 @@
+
+.itemJogo{
+    width: 12rem; 
+    border-radius:14px;
+    margin-top:20px;
+}
+
+
+.itemJogo:hover{
+    transform: scale(1.01);
+    transition: 1s;
+    color: red;
+}

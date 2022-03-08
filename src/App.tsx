@@ -1,16 +1,21 @@
 import React from 'react';
 import './App.css';
+import ItemJogo from './components/ItemJogo';
+import NavBar from './components/NavBar';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Hello World!
-        </p>
-      
-      </header>
-    </div>
+    <>
+      <NavBar />
+      <div className="App">
+       
+     <ItemJogo nomeJogo='Nome do Jogo' anoJogo={2019} id={1}/>
+        
+
+      </div>
+    </>
+
   );
 }
 
