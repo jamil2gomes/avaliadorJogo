@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,6 +8,8 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import Image from 'react-bootstrap/Image'
 import logo from '../../assets/logo.png';
+import "./navbar.css";
+
 export default function NavBar() {
   return (
     <>
@@ -20,8 +23,8 @@ export default function NavBar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link href="#action1">Início</Nav.Link>
-              <Nav.Link href="#action2">Incluir</Nav.Link>
+              <Nav.Link><Link className='itemMenu' to="/home">Início</Link></Nav.Link>
+              <Nav.Link><Link className='itemMenu' to="/incluir">Incluir</Link></Nav.Link>
             </Nav>
             <Form className="d-flex">
               <FormControl

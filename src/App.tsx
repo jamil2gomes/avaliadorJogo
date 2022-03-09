@@ -1,6 +1,6 @@
 import React from 'react';
+import { Outlet} from "react-router-dom";
 import './App.css';
-import ItemJogo from './components/ItemJogo';
 import NavBar from './components/NavBar';
 
 
@@ -10,9 +10,8 @@ function App() {
       <NavBar />
       <div className="App">
        
-     <ItemJogo nomeJogo='Nome do Jogo' anoJogo={2019} id={1}/>
-        
-
+      <Outlet/>
+      
       </div>
     </>
 
