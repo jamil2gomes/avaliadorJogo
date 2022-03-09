@@ -10,15 +10,15 @@ interface ItemJogoProps {
     id:number;
 }
 
-const ItemJogo:React.FC<ItemJogoProps> = ({nomeJogo, anoJogo, id}) => {
+const ItemJogo:React.FC = () => {
     return(
         <>
-         <Card className="itemJogo">
-          <Card.Img variant="top" src={controle} width={200} height={200}/>
+         <Card className="itemJogo border border-light">
+          <Card.Img variant="top" src={controle} />
           <Card.Body>
-            <Card.Title>{nomeJogo}</Card.Title>
+            <Card.Title>Nome do Jogo</Card.Title>
             <Card.Text>
-              {anoJogo}
+              Ano
             </Card.Text>
             <Button variant="success">Ver mais</Button>
           </Card.Body>

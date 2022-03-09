@@ -23,7 +23,7 @@ export default function NavBar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link><Link className='itemMenu' to="/home">Início</Link></Nav.Link>
+              <Nav.Link><Link className='itemMenu' to="/">Início</Link></Nav.Link>
               <Nav.Link><Link className='itemMenu' to="/incluir">Incluir</Link></Nav.Link>
             </Nav>
             <Form className="d-flex">
