@@ -1,31 +1,28 @@
-.lista-group{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding:0;
-}
-.container{
-    margin-top: 6rem; 
-    display: flex;
-    flex-direction: column;
-}
 
 .sessaoJogo{
     padding:0;
     margin:0;
 }
 
-@media(max-width:425px) {
+.lista-group{
+    display: flex;
+    padding:0;
+    flex-direction: column;
+    flex-wrap: wrap; 
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media(min-width:768px) {
 
     .lista-group{
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        flex-direction: row; 
     }
 
     .container{
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
-
+  
 }

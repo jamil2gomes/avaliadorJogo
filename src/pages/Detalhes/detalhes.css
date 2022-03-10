@@ -1,0 +1,14 @@
+.headerDetalhe{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    background-color: cadetblue;
+    text-align: left;
+}
+
+.containerDetalhe{
+    display: flex;
+    margin-top: 7rem;
+    flex-direction: column;
+  }
+  

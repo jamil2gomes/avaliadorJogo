@@ -1,9 +1,8 @@
 
-.itemJogo{
-    width: 12rem;
-    border-radius: 10px;
-}
-
+    .itemJogo{
+        width: 16rem; 
+        border-radius: 10px;
+    }
 
 .itemJogo:hover{
     transform: scale(1.04);
@@ -11,10 +10,11 @@
     color: red;
 }
 
-@media(max-width:425px) {
+@media(min-width:768px) {
 
     .itemJogo{
-        width: 16rem; 
+        width: 12rem;    
     }
+    
 
 }
