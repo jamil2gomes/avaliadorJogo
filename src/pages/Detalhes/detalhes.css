@@ -9,5 +9,37 @@
     display: flex;
     margin-top: 7rem;
     flex-direction: column;
-  }
+}
+
+.sectionPlataformas{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+}
+
+.notaMetrica{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    width: 40px;
+    color:white;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.secaoNotaMediaEAdicionarNota{
+    width:400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.containerInternoSecaoNotaMediaEAdicionarNota{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
   

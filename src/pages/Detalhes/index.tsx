@@ -1,10 +1,18 @@
 import React from "react";
 //componentes
-import Container from "react-bootstrap/Container";
+
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
-import Image from 'react-bootstrap/Image';
+import Container from "react-bootstrap/Container";
+import Image     from 'react-bootstrap/Image';
 import Accordion from 'react-bootstrap/Accordion';
+import Badge     from 'react-bootstrap/Badge';
+import ListGroup from 'react-bootstrap/ListGroup';
+import  Button   from "react-bootstrap/Button";
+//estilos
 import "./detalhes.css";
+
+//imagens
+import { RiWindowsFill, RiPlaystationFill, RiXboxFill, RiAndroidFill, RiAppStoreFill, RiAddCircleLine } from "react-icons/ri";
 import logo from '../../assets/controle-jogo.png';
 
 const data = [
@@ -22,14 +30,14 @@ const data = [
     },
     {
         subject: 'Tipografia',
-        A: 5,
-        B: 7,
+        A: 0,
+        B: 5,
         fullMark: 10,
     },
     {
         subject: 'Navegabilidade',
-        A: 9,
-        B: 10,
+        A: 4,
+        B: 5,
         fullMark: 10,
     },
     {
@@ -42,10 +50,24 @@ const data = [
 
 const Detalhes = () => {
 
+    function mediaNotas()
+    {
+
+    }
+
+    function retornaCorDaNota(nota:number){
+        if(nota>=7 && nota <=10)
+            return "#008000";
+        if(nota>=5 && nota < 7)
+            return "#FFA500";
+        
+        return "#FF0000";
+    }
+
     return (
         <Container fluid className="containerDetalhe">
             <header className="headerDetalhe">
-                <Image src={logo} rounded width={100} height={94} />
+                <Image src={logo} rounded width={100} height={90} />
                 <div className="ms-2">
                     <h3>Título de Jogo</h3>
                     <Accordion flush>
@@ -65,15 +87,55 @@ const Detalhes = () => {
                 </div>
             </header>
 
-            <ResponsiveContainer className="my-2" width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
-                    <PolarGrid />
-                    <PolarAngleAxis dataKey="subject" />
-                    <PolarRadiusAxis />
-                    <Radar name="NomeJogo" dataKey="A" stroke="#0F8F2E" fill="#27DC53" fillOpacity={0.6} />
-                </RadarChart>
-            </ResponsiveContainer>
+            <main>
+                <ResponsiveContainer className="my-3" width="100%" height={200}>
+                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+                        <PolarGrid />
+                        <PolarAngleAxis dataKey="subject" />
+                        <PolarRadiusAxis />
+                        <Radar name="NomeJogo" dataKey="B" stroke="#0F8F2E" fill="#27DC53" fillOpacity={0.6} />
+                    </RadarChart>
+                </ResponsiveContainer>
 
+                <section className="sectionPlataformas">
+                    <Badge pill bg="secondary"><RiWindowsFill />Win</Badge>
+                    <Badge pill bg="secondary"><RiPlaystationFill />Ps4</Badge>
+                    <Badge pill bg="secondary"><RiPlaystationFill />Ps5</Badge>
+                    <Badge pill bg="secondary"><RiXboxFill />Xbox</Badge>
+                </section>
+
+                <section className="listagemMetricasComNotas my-3">
+                    <ListGroup as="ul" variant="flush" >
+                        {
+                            data.map((item, index) => (
+                                <ListGroup.Item as="li" key={index.toString()} action className="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p>{item.subject}</p>
+                                    </div>
+                                    <div className="notaMetrica" style={{backgroundColor:retornaCorDaNota(item.B)}}>
+                                        <span>{item.B}</span>
+                                    </div>
+                                </ListGroup.Item>
+                            ))
+                        }
+
+                    </ListGroup>
+                </section>
+
+                <section className="my-3 secaoNotaMediaEAdicionarNota">
+                   <div className="containerInternoSecaoNotaMediaEAdicionarNota">
+                    <span className="notaMetrica my-2" style={{backgroundColor:retornaCorDaNota(6.2)}}>6.2</span>
+                    
+                    <span style={{fontSize:12}}>Nota da Comunidade</span>
+                    <span style={{fontSize:12}}>Baseada em 123 avaliações</span>
+                  </div>
+                     
+                  <div className="containerInternoSecaoNotaMediaEAdicionarNota">
+                    <RiAddCircleLine className="my-2" size={'2.5em'}/>
+                    <Button variant="info" style={{color:"white"}}>Adicionar Nota</Button>
+                  </div>          
+                </section>
+            </main>
 
         </Container>
     )
