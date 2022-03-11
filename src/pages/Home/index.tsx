@@ -21,7 +21,6 @@ const Home = () => {
     let navigate = useNavigate();
 
     function onClickItem(id:number){
-        console.log(id);
         navigate(`/detalhes/${id}`);
     }
 

@@ -1,0 +1,5 @@
+.containerAvaliacao{
+    display: flex;
+    margin-top: 7rem;
+    flex-direction: column;
+}

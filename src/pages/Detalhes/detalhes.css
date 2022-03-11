@@ -39,7 +39,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    
+    flex-direction: column; 
+}
+
+.fichaTecnica{
+    max-width: 425px;
+}
+
+.fichaTecnica li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: inherit;
+}
+
+.fichaTecnica h3 {
+    font-weight: 600;
 }
   

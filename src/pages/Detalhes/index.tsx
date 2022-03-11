@@ -1,13 +1,15 @@
-import React from "react";
+import React,{useEffect} from "react";
+import { Link, useParams } from "react-router-dom";
 //componentes
-
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import Container from "react-bootstrap/Container";
 import Image     from 'react-bootstrap/Image';
 import Accordion from 'react-bootstrap/Accordion';
 import Badge     from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
-import  Button   from "react-bootstrap/Button";
+import Button    from "react-bootstrap/Button";
+
+
 //estilos
 import "./detalhes.css";
 
@@ -50,9 +52,13 @@ const data = [
 
 const Detalhes = () => {
 
+    const {id} = useParams();
+
+    useEffect(()=>{mediaNotas();},[]);
+
     function mediaNotas()
     {
-
+        console.log(id)
     }
 
     function retornaCorDaNota(nota:number){
@@ -132,9 +138,43 @@ const Detalhes = () => {
                      
                   <div className="containerInternoSecaoNotaMediaEAdicionarNota">
                     <RiAddCircleLine className="my-2" size={'2.5em'}/>
-                    <Button variant="info" style={{color:"white"}}>Adicionar Nota</Button>
+                    <Link to={`/avaliar/${id}`}>
+                        <Button variant="info" style={{color:"white"}}>Adicionar Nota</Button>
+                    </Link>
                   </div>          
                 </section>
+
+                <aside className="fichaTecnica my-4">
+                  <h3>Ficha do Jogo</h3> 
+                  <ListGroup variant="flush" as="ol">
+                    <ListGroup.Item as="li">
+                      <div>Nome</div>
+                      <span>Nome do Jogo</span>
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li">
+                    <div>Lançamento</div>
+                      <span>2022</span>
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li">
+                    <div>Plataformas</div>
+                      <span>
+                          <Badge pill bg="secondary">Android</Badge>
+                      </span>
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li">
+                    <div>Modos de Jogo</div>
+                      <span>
+                      <Badge pill bg="secondary">Plataforma</Badge>
+                      </span>
+                    </ListGroup.Item>
+                    <ListGroup.Item as="li">
+                    <div>Desenvolvedora</div>
+                      <span>
+                      <Badge pill bg="secondary">Skynet INC.</Badge>
+                      </span>
+                    </ListGroup.Item>
+                  </ListGroup>
+                </aside>
             </main>
 
         </Container>
