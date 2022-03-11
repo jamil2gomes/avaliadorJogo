@@ -3,3 +3,25 @@
     margin-top: 7rem;
     flex-direction: column;
 }
+
+.cabecalho{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notaMediaAvaliacao{
+    width: 80px;
+    height: 80px;
+}
+
+.containerInstrucaoAvaliacao{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 425px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: rgb(202, 197, 197);
+    border-radius: 8px;;
+}

@@ -9,6 +9,8 @@ import Badge     from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button    from "react-bootstrap/Button";
 
+//utilitarios
+import { retornaCorDaNota } from "../../util";
 
 //estilos
 import "./detalhes.css";
@@ -54,21 +56,6 @@ const Detalhes = () => {
 
     const {id} = useParams();
 
-    useEffect(()=>{mediaNotas();},[]);
-
-    function mediaNotas()
-    {
-        console.log(id)
-    }
-
-    function retornaCorDaNota(nota:number){
-        if(nota>=7 && nota <=10)
-            return "#008000";
-        if(nota>=5 && nota < 7)
-            return "#FFA500";
-        
-        return "#FF0000";
-    }
 
     return (
         <Container fluid className="containerDetalhe">

@@ -65,3 +65,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.notaMetrica{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    width: 50px;
+    color:white;
+	font-weight: 600;
+	font-size: 1.1em;
+    height: 50px;
+    border-radius: 50%;
+}
