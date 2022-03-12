@@ -11,8 +11,22 @@ interface ItemJogoProps {
 }
 
 const ItemJogo:React.FC = () => {
+
+
     return(
         <>
+      <style type="text/css">
+        {`
+        .btn-indigo {
+          background-color: indigo;
+          color: white;
+        }
+
+        .btn-indigo:hover {
+          color: white;
+        }
+        `}
+      </style>
          <Card className="itemJogo border border-light">
           <Card.Img variant="top" src={controle} />
           <Card.Body>
@@ -20,7 +34,7 @@ const ItemJogo:React.FC = () => {
             <Card.Text>
               Ano
             </Card.Text>
-            <Button variant="success">Ver mais</Button>
+            <Button variant="indigo">Ver mais</Button>
           </Card.Body>
         </Card>
         </>

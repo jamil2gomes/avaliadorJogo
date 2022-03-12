@@ -8,7 +8,14 @@
 .itemJogo:hover{
     transform: scale(1.04);
     transition: .8s;
-    color: red;
+    color: rgb(14, 100, 3);
+
+}
+
+.itemJogo:hover button{
+    
+    background-color: rgb(14, 100, 3);
+    color: white;
 }
 
 @media(min-width:768px) {

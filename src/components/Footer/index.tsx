@@ -5,7 +5,8 @@ const Footer:React.FC = () => {
     return(
         
         <footer className="footer">
-            <p style={{color:"white"}}>Copyright 2022</p>
+            <span style={{color:"white"}}>Copyright</span>
+            <span style={{color:"white"}}>2022</span>
         </footer>
     )
 }

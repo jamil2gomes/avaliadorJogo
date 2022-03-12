@@ -20,7 +20,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 425px;
     padding: 10px;
     font-size: 14px;
     background-color: rgb(202, 197, 197);
@@ -32,3 +31,36 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.principal{
+    width: 98%;
+}
+
+@media(min-width:768px) {
+
+    .principal{
+         max-width: 500px;
+         min-width: 500px;
+    }
+ 
+    .cabecalho, .containerInstrucaoAvaliacao, .containerCabecalho, .avaliacao{
+        width:100%;
+        font-size: 16px;
+    }
+
+  
+ }
+
+@media(min-width:1024px) {
+
+   .principal{
+        min-width: 800px;
+        max-width: 800px;
+   }
+
+   .cabecalho, .containerInstrucaoAvaliacao, .containerCabecalho, .avaliacao{
+        width:100%;
+        font-size: 20px;
+    }
+}
+

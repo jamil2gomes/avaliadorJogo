@@ -15,7 +15,7 @@ export default function NavBar() {
     <>
       <Navbar fixed='top' bg="light" expand="lg" variant="light">
         <Container fluid>
-          <Navbar.Brand href="#"><Image roundedCircle fluid src={logo} width={70} height={70} /></Navbar.Brand>
+          <Navbar.Brand href="#"><Image fluid src={logo} width={70} height={70} /></Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
