@@ -1,5 +1,8 @@
 .itemMenu{
     text-decoration: none;
-    color:inherit;
     font-size: 20px;
+}
+
+.itemMenu:hover{
+    color:indigo;
 }

@@ -13,7 +13,7 @@ import "./navbar.css";
 export default function NavBar() {
   return (
     <>
-      <Navbar fixed='top' bg="light" expand="lg">
+      <Navbar fixed='top' bg="light" expand="lg" variant="light">
         <Container fluid>
           <Navbar.Brand href="#"><Image roundedCircle fluid src={logo} width={70} height={70} /></Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -23,8 +23,8 @@ export default function NavBar() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link><Link className='itemMenu' to="/">Início</Link></Nav.Link>
-              <Nav.Link><Link className='itemMenu' to="/incluir">Incluir</Link></Nav.Link>
+              <Link to="/" className='itemMenu'><Nav.Link as="span">Início</Nav.Link></Link>
+              <Link to="/incluir" className='itemMenu'><Nav.Link as="span">Incluir</Nav.Link></Link>
             </Nav>
             <Form className="d-flex">
               <FormControl

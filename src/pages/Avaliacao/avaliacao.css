@@ -1,7 +1,8 @@
 .containerAvaliacao{
     display: flex;
-    margin-top: 7rem;
+    margin-top: 6rem;
     flex-direction: column;
+    background-color: white;
 }
 
 .cabecalho{
@@ -24,4 +25,10 @@
     font-size: 14px;
     background-color: rgb(202, 197, 197);
     border-radius: 8px;;
+}
+
+.avaliacaoSection{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
 }
