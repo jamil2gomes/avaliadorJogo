@@ -24,8 +24,8 @@ const IncluirJogo = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="plataformas">
                     <Form.Label>Plataformas</Form.Label>
-                        <Form.Select multiple size="lg">
-                            <option>Selecione uma plataforma</option>
+                        <Form.Select size="lg">
+                            <option></option>
                             <option value="1">Playstation 4</option>
                             <option value="2">Xbox One</option>
                             <option value="3">Nintendo Switch</option>
