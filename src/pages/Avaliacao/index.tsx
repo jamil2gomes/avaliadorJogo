@@ -4,7 +4,7 @@ import Image from 'react-bootstrap/Image';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SliderEstilizado from "./SlideEstilizado";
-
+import Dialog,{Links} from '../../components/Popover';
 import jogoImg from '../../assets/controle-jogo.png';
 import { RiInformationLine } from 'react-icons/ri';
 import "./avaliacao.css";
@@ -17,6 +17,10 @@ const Avaliacao: React.FC = () => {
     const [valorFeedback, setValorFeedback] = useState(5);
     const [valorNavegabilidade, setValorNavegabilidade] = useState(5);
     const [valorTipografia, setValorTipografia] = useState(5);
+    const [modalShow, setModalShow] = useState(false);
+
+    const handleClose = () => setModalShow(false);
+    const handleShow = () => setModalShow(true);
 
     function valuetext(value: number) {
         return `${value}`;
@@ -67,15 +71,20 @@ const Avaliacao: React.FC = () => {
               <div>
                   <div className="avaliacaoSection">
                       <div style={{ width: "90%" }}>
+                          
                           <label id="audio">
                               <span
-                                  aria-label="Informação sobre diretriz Áudio"
-                                  className="me-1"
+                                id="audioInfo"
+                                aria-expanded="false" 
+                                role="button"
+                                className="me-1"
+                                onClick={()=>{handleShow(); console.log("cliquei aqui")}}
                               >
                                   <RiInformationLine />
                               </span>
                             Áudio
                               </label>
+                             
                               <SliderEstilizado
                                   aria-labelledby="audio"
                                   trocarCor={trocarCorAudio}
@@ -99,8 +108,10 @@ const Avaliacao: React.FC = () => {
                             <div style={{ width: "90%" }}>
                                 <label id="feedback">
                                     <span
-                                        aria-label="Informação sobre diretriz Feedback"
-                                        className="me-1"
+                                    id="feedbackInfo"
+                                    aria-expanded="false" 
+                                    role="button"                                   
+                                    className="me-1"
                                     >
                                         <RiInformationLine />
                                     </span>
@@ -129,8 +140,10 @@ const Avaliacao: React.FC = () => {
                             <div style={{ width: "90%" }}>
                                 <label id="navegabilidade">
                                     <span
-                                        aria-label="Informação sobre diretriz Navegabilidade"
-                                        className="me-1"
+                                    id="navegabilidadeInfo"
+                                    aria-expanded="false" 
+                                    role="button"       
+                                    className="me-1"
                                     >
                                         <RiInformationLine />
                                     </span>
@@ -159,8 +172,10 @@ const Avaliacao: React.FC = () => {
                             <div style={{ width: "90%" }}>
                                 <label id="tipografia">
                                     <span
-                                        aria-label="Informação sobre diretriz Tipografia"
-                                        className="me-1"
+                                    id="tipografiaInfo"
+                                    aria-expanded="false" 
+                                    role="button"   
+                                    className="me-1"
                                     >
                                         <RiInformationLine />
                                     </span>
@@ -199,6 +214,13 @@ const Avaliacao: React.FC = () => {
                 </section>
             </main>
         </Container>
+        <Dialog 
+        id={Links.AUDIO} 
+        titulo="Áudio" 
+        conteudo={`O jogo possui sons perturbadores e explosivos, como sirenes e fogos de artifício?\nIsso deve ser evitado, devido à sensibilidade da criança com autismo para determinados sons.\n`}
+        show={modalShow} 
+        onHide={handleClose}
+        />
     </>
     );
 }
