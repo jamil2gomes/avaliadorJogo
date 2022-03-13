@@ -24,7 +24,7 @@ export default function NavBar() {
               navbarScroll
             >
               <Link to="/" className='itemMenu'><Nav.Link as="span">Início</Nav.Link></Link>
-              <Link to="/incluir" className='itemMenu'><Nav.Link as="span">Incluir</Nav.Link></Link>
+              <Link to="/incluir/jogo" className='itemMenu'><Nav.Link as="span">Incluir</Nav.Link></Link>
             </Nav>
             <Form className="d-flex">
               <FormControl

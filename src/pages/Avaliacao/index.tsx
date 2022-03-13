@@ -11,13 +11,17 @@ import "./avaliacao.css";
 //utilitarios
 import { retornaCorDaNota } from "../../util";
 
+type ConteudoModal = {titulo:string, conteudo:string, link:Links}
+
 const Avaliacao: React.FC = () => {
 
     const [valorAudio, setValorAudio] = useState(5);
     const [valorFeedback, setValorFeedback] = useState(5);
     const [valorNavegabilidade, setValorNavegabilidade] = useState(5);
-    const [valorTipografia, setValorTipografia] = useState(5);
+    const [valorCores, setvalorCores] = useState(5);
+    const [valorInterface, setValorInterface] = useState(5);
     const [modalShow, setModalShow] = useState(false);
+    const [conteudoModal, setConteudoModal] = useState<ConteudoModal>({} as ConteudoModal);
 
     const handleClose = () => setModalShow(false);
     const handleShow = () => setModalShow(true);
@@ -30,6 +34,10 @@ const Avaliacao: React.FC = () => {
         return retornaCorDaNota(valorAudio);
     }
 
+    function trocarCorInterface() {
+        return retornaCorDaNota(valorInterface);
+    }
+
     function trocarCorFeedback() {
         return retornaCorDaNota(valorFeedback);
     }
@@ -37,21 +45,28 @@ const Avaliacao: React.FC = () => {
     function trocarCorNavegabilidade() {
         return retornaCorDaNota(valorNavegabilidade);
     }
-    function trocarCorTipografia() {
-        return retornaCorDaNota(valorTipografia);
+    function trocarCorCores() {
+        return retornaCorDaNota(valorCores);
     }
 
     function onChangeAudio(event: Event, value: number | number[]) {
         setValorAudio(value as number);
     }
+
+    function onChangeInterface(event: Event, value: number | number[]) {
+        setValorInterface(value as number);
+    }
+
     function onChangeFeedback(event: Event, value: number | number[]) {
         setValorFeedback(value as number);
     }
+
     function onChangeNavegabilidade(event: Event, value: number | number[]) {
         setValorNavegabilidade(value as number);
     }
-    function onChangeTipografia(event: Event, value: number | number[]) {
-        setValorTipografia(value as number);
+
+    function onChangeCores(event: Event, value: number | number[]) {
+        setvalorCores(value as number);
     }
 
 
@@ -78,7 +93,14 @@ const Avaliacao: React.FC = () => {
                                 aria-expanded="false" 
                                 role="button"
                                 className="me-1"
-                                onClick={()=>{handleShow(); console.log("cliquei aqui")}}
+                                onClick={()=>{
+                                    setConteudoModal({
+                                        titulo:"Áudio", 
+                                        conteudo:`O jogo possui sons perturbadores e explosivos, como sirenes e fogos de artifício?\nIsso deve ser evitado, devido à sensibilidade da criança com autismo para determinados sons.\n`,
+                                        link: Links.AUDIO
+                                    });
+                                    handleShow();
+                                }}
                               >
                                   <RiInformationLine />
                               </span>
@@ -112,6 +134,14 @@ const Avaliacao: React.FC = () => {
                                     aria-expanded="false" 
                                     role="button"                                   
                                     className="me-1"
+                                    onClick={()=>{
+                                        setConteudoModal({
+                                            titulo:"Feedback", 
+                                            conteudo:`O jogo fornece mensagens claras para indicar que aquela ação não deve ser realizada e como a pessoa deve interagir com aquele elemento.\n`,
+                                            link: Links.FEEDBACK
+                                        });
+                                        handleShow();
+                                    }}
                                     >
                                         <RiInformationLine />
                                     </span>
@@ -144,6 +174,14 @@ const Avaliacao: React.FC = () => {
                                     aria-expanded="false" 
                                     role="button"       
                                     className="me-1"
+                                    onClick={()=>{
+                                        setConteudoModal({
+                                            titulo:"Navegabilidade", 
+                                            conteudo:`O jogo fornece navegação simples e consistente.\n`,
+                                            link: Links.NAVEGABILIDADE
+                                        });
+                                        handleShow();
+                                    }}
                                     >
                                         <RiInformationLine />
                                     </span>
@@ -170,24 +208,32 @@ const Avaliacao: React.FC = () => {
                         </div>
                         <div className="avaliacaoSection">
                             <div style={{ width: "90%" }}>
-                                <label id="tipografia">
+                                <label id="cores">
                                     <span
-                                    id="tipografiaInfo"
+                                    id="coresInfo"
                                     aria-expanded="false" 
                                     role="button"   
                                     className="me-1"
+                                    onClick={()=>{
+                                        setConteudoModal({
+                                            titulo:"Cores", 
+                                            conteudo:`O contraste entre as cores de fundo e objetos de primeiro plano deve ser adequado para distinguir os itens e diferenciar conteúdos ou relacionar informações similares.\n`,
+                                            link: Links.CORES
+                                        });
+                                        handleShow();
+                                    }}
                                     >
                                         <RiInformationLine />
                                     </span>
-                                    Tipografia
+                                    Cores
                                 </label>
                                 <SliderEstilizado
-                                    aria-labelledby="tipografia"
-                                    trocarCor={trocarCorTipografia}
-                                    onChange={onChangeTipografia}
+                                    aria-labelledby="cores"
+                                    trocarCor={trocarCorCores}
+                                    onChange={onChangeCores}
                                     getAriaValueText={valuetext}
                                     valueLabelDisplay="auto"
-                                    value={valorTipografia}
+                                    value={valorCores}
                                     step={1}
                                     marks
                                     min={0}
@@ -196,8 +242,48 @@ const Avaliacao: React.FC = () => {
                             </div>
                             <span
                                 className="notaMetrica notaMediaAvaliacao ms-3"
-                                style={{ backgroundColor: retornaCorDaNota(valorTipografia), height: 50, width: 50 }}
-                            >{valorTipografia}
+                                style={{ backgroundColor: retornaCorDaNota(valorCores), height: 50, width: 50 }}
+                            >{valorCores}
+                            </span>
+                        </div>
+                        <div className="avaliacaoSection">
+                            <div style={{ width: "90%" }}>
+                                <label id="interface">
+                                    <span
+                                    id="interfaceInfo"
+                                    aria-expanded="false" 
+                                    role="button"   
+                                    className="me-1"
+                                    onClick={()=>{
+                                        setConteudoModal({
+                                            titulo:"Interface", 
+                                            conteudo:`Interfaces simples, com poucos elementos e que contenha somente as funcionalidades e conteúdos necessários para a tarefa atua.\n`,
+                                            link: Links.INTERFACE
+                                        });
+                                        handleShow();
+                                    }}
+                                    >
+                                        <RiInformationLine />
+                                    </span>
+                                    Interface
+                                </label>
+                                <SliderEstilizado
+                                    aria-labelledby="cores"
+                                    trocarCor={trocarCorInterface}
+                                    onChange={onChangeInterface}
+                                    getAriaValueText={valuetext}
+                                    valueLabelDisplay="auto"
+                                    value={valorInterface}
+                                    step={1}
+                                    marks
+                                    min={0}
+                                    max={10}
+                                />
+                            </div>
+                            <span
+                                className="notaMetrica notaMediaAvaliacao ms-3"
+                                style={{ backgroundColor: retornaCorDaNota(valorInterface), height: 50, width: 50 }}
+                            >{valorInterface}
                             </span>
                         </div>
                         <Form.Select size="lg" aria-label="Select de plataformas onde jogou" className="mb-4">
@@ -215,9 +301,9 @@ const Avaliacao: React.FC = () => {
             </main>
         </Container>
         <Dialog 
-        id={Links.AUDIO} 
-        titulo="Áudio" 
-        conteudo={`O jogo possui sons perturbadores e explosivos, como sirenes e fogos de artifício?\nIsso deve ser evitado, devido à sensibilidade da criança com autismo para determinados sons.\n`}
+        id={conteudoModal.link} 
+        titulo={conteudoModal.titulo}
+        conteudo={conteudoModal.conteudo}
         show={modalShow} 
         onHide={handleClose}
         />

@@ -18,7 +18,7 @@ const Rotas = () => {
                     <Route index element={<Home />} />
                     <Route path="detalhes/:id" element={<Detalhes />} />
                     <Route path="avaliar/:id" element={<Avaliacao />} />
-                    <Route path="incluir" element={<IncluirJogo />} />
+                    <Route path="incluir/jogo" element={<IncluirJogo />} />
                 </Route>
             </Routes>    
         </BrowserRouter>
