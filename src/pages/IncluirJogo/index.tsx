@@ -63,7 +63,7 @@ const IncluirJogo = () => {
                         <Form.Control type="text" placeholder="Insira o nome do jogo" size="lg" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="descricao">
-                        <Form.Label>Descrição</Form.Label>
+                        <Form.Label>Sinopse</Form.Label>
                         <Form.Control as="textarea" rows={4} size="lg" style={{ resize: 'none' }} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="dataLancamento">
