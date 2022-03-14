@@ -10,7 +10,7 @@ interface ItemJogoProps {
     id:number;
 }
 
-const ItemJogo:React.FC = () => {
+const ItemJogo= (props:any) => {
 
 
     return(
@@ -30,7 +30,7 @@ const ItemJogo:React.FC = () => {
          <Card className="itemJogo border border-light">
           <Card.Img variant="top" src={controle} />
           <Card.Body>
-            <Card.Title>Nome do Jogo</Card.Title>
+            <Card.Title>{`Nome Jogo ${props.nomeJogo}`}</Card.Title>
             <Card.Text>
               Ano
             </Card.Text>

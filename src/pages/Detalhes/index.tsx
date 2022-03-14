@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React,{useEffect, useState} from "react";
 import { Link, useParams } from "react-router-dom";
 //componentes
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
@@ -19,42 +19,71 @@ import "./detalhes.css";
 import { RiWindowsFill, RiPlaystationFill, RiXboxFill, RiAndroidFill, RiAppStoreFill, RiAddCircleLine } from "react-icons/ri";
 import logo from '../../assets/controle-jogo.png';
 
-const data = [
+const data = 
     {
-        subject: 'Jogabilidade',
-        A: 8,
-        B: 8,
-        fullMark: 10,
-    },
-    {
-        subject: 'Feedback',
-        A: 7,
-        B: 8,
-        fullMark: 10,
-    },
-    {
-        subject: 'Tipografia',
-        A: 0,
-        B: 5,
-        fullMark: 10,
-    },
-    {
-        subject: 'Navegabilidade',
-        A: 4,
-        B: 5,
-        fullMark: 10,
-    },
-    {
-        subject: 'Audio',
-        A: 8,
-        B: 9,
-        fullMark: 10,
-    },
-];
+        ps4:[
+            {
+                subject: 'Jogabilidade',
+                B: 8,
+            },
+            {
+                subject: 'Feedback',
+                B: 7,
+            },
+            {
+                subject: 'Tipografia',
+                B: 3,
+
+            },
+            {
+                subject: 'Navegabilidade',
+                B: 5,
+            },
+            {
+                subject: 'Audio',
+                B: 10,
+
+            },
+        ],
+        win:[
+            {
+                subject: 'Jogabilidade',
+                B: 5,
+
+            },
+            {
+                subject: 'Feedback',
+                B: 2,
+
+            },
+            {
+                subject: 'Tipografia',
+                B: 5,
+
+            },
+            {
+                subject: 'Navegabilidade',
+                B: 5,
+
+            },
+            {
+                subject: 'Audio',
+                B: 4,
+            },
+        ]
+    };
 
 const Detalhes = () => {
-
+    const [notasDaPlataforma, setNotasDaPlataforma] = useState(data.ps4)
     const {id} = useParams();
+
+    function calcularMedia(){
+        const soma = notasDaPlataforma.reduce((total, atual) => {
+            return total + atual.B;
+          },0);
+
+          return soma/notasDaPlataforma.length;
+    }
 
 
     return (
@@ -82,7 +111,7 @@ const Detalhes = () => {
 
             <main>
                 <ResponsiveContainer className="my-3" width="100%" height={200}>
-                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={notasDaPlataforma}>
                         <PolarGrid />
                         <PolarAngleAxis dataKey="subject" />
                         <PolarRadiusAxis />
@@ -91,8 +120,8 @@ const Detalhes = () => {
                 </ResponsiveContainer>
 
                 <section className="sectionPlataformas">
-                    <Badge pill bg="secondary"><RiWindowsFill />Win</Badge>
-                    <Badge pill bg="secondary"><RiPlaystationFill />Ps4</Badge>
+                    <Badge pill bg="secondary" onClick={()=>{setNotasDaPlataforma(data.win)}}><RiWindowsFill />Win</Badge>
+                    <Badge pill bg="secondary" onClick={()=>{setNotasDaPlataforma(data.ps4)}}><RiPlaystationFill />Ps4</Badge>
                     <Badge pill bg="secondary"><RiPlaystationFill />Ps5</Badge>
                     <Badge pill bg="secondary"><RiXboxFill />Xbox</Badge>
                 </section>
@@ -100,7 +129,7 @@ const Detalhes = () => {
                 <section className="listagemMetricasComNotas my-3">
                     <ListGroup as="ul" variant="flush" >
                         {
-                            data.map((item, index) => (
+                            notasDaPlataforma.map((item, index) => (
                                 <ListGroup.Item as="li" key={index.toString()} action className="d-flex justify-content-between align-items-center">
                                     <div>
                                         <p>{item.subject}</p>
@@ -117,7 +146,7 @@ const Detalhes = () => {
 
                 <section className="my-3 secaoNotaMediaEAdicionarNota">
                    <div className="containerInternoSecaoNotaMediaEAdicionarNota">
-                    <span className="notaMetrica my-2" style={{backgroundColor:retornaCorDaNota(6.2)}}>6.2</span>
+                    <span className="notaMetrica my-2" style={{backgroundColor:retornaCorDaNota(calcularMedia())}}>{calcularMedia()}</span>
                     
                     <span style={{fontSize:12}}>Nota da Comunidade</span>
                     <span style={{fontSize:12}}>Baseada em 123 avaliações</span>

@@ -32,8 +32,8 @@ const Home = () => {
                 <ul className="lista-group">
                     {
                         data.map((item, index) => (
-                            <li key={index} onClick={()=>onClickItem(index)} className="me-3 my-2" style={{ backgroundColor: "transparent", border: 0, padding: 0, margin:0 }}>
-                                <ItemJogo />
+                            <li key={index} onClick={()=>onClickItem(item)} className="me-3 my-2" style={{ backgroundColor: "transparent", border: 0, padding: 0, margin:0 }}>
+                                <ItemJogo nomeJogo={item}/>
                             </li>
                         ))
                     }
@@ -46,8 +46,8 @@ const Home = () => {
                 <ul className="lista-group">
                     {
                         data.map((item,index) => (
-                            <li key={index} onClick={()=>onClickItem(index)} className="me-3 my-2" style={{ backgroundColor: "transparent", border: 0, padding: 0 }}>
-                                <ItemJogo />
+                            <li key={index} onClick={()=>onClickItem(item)} className="me-3 my-2" style={{ backgroundColor: "transparent", border: 0, padding: 0 }}>
+                                <ItemJogo nomeJogo={item}/>
                             </li>
                         ))
                     }
