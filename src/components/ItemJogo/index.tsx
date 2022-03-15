@@ -1,7 +1,7 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import controle from '../../assets/controle-jogo.png';
+import controle from '../../assets/jogogenerico.png';
 import './itemjogo.css';
 
 interface ItemJogoProps {

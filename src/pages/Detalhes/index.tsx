@@ -17,7 +17,7 @@ import "./detalhes.css";
 
 //imagens
 import { RiWindowsFill, RiPlaystationFill, RiXboxFill, RiAndroidFill, RiAppStoreFill, RiAddCircleLine } from "react-icons/ri";
-import logo from '../../assets/controle-jogo.png';
+import logo from '../../assets/jogogenerico.png';
 
 const data = 
     {
@@ -89,10 +89,10 @@ const Detalhes = () => {
     return (
         <Container fluid className="containerDetalhe">
             <header className="headerDetalhe">
-                <Image src={logo} rounded width={100} height={90} />
+                <Image src={logo} rounded width={100} height={100} />
                 <div className="ms-2">
                     <h3>Título de Jogo</h3>
-                    <Accordion flush>
+                    <Accordion flush style={{borderWidth:1, }}>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>Sinopse</Accordion.Header>
                             <Accordion.Body>
@@ -115,7 +115,7 @@ const Detalhes = () => {
                         <PolarGrid />
                         <PolarAngleAxis dataKey="subject" />
                         <PolarRadiusAxis />
-                        <Radar name="NomeJogo" dataKey="B" stroke="#0F8F2E" fill="#27DC53" fillOpacity={0.6} />
+                        <Radar name="NomeJogo" dataKey="B" stroke="#000" fill="#27DC53" fillOpacity={0.8} />
                     </RadarChart>
                 </ResponsiveContainer>
 

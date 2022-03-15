@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import SliderEstilizado from "./SlideEstilizado";
 import Dialog,{Links} from '../../components/Popover';
-import jogoImg from '../../assets/controle-jogo.png';
+import jogoImg from '../../assets/jogogenerico.png';
 import { RiInformationLine } from 'react-icons/ri';
 import "./avaliacao.css";
 //utilitarios

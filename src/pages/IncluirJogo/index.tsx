@@ -55,12 +55,12 @@ const IncluirJogo = () => {
                 }
            `}
             </style>
-            <Container className="container">
+            <Container className="container" style={{backgroundColor:"#E5E5E5", backgroundImage:"none"}}>
                 <h2 className="my-3">Incluir jogo</h2>
                 <Form className="" style={{ width: "95%" }}>
                     <Form.Group className="mb-3" controlId="nome">
                         <Form.Label>Nome</Form.Label>
-                        <Form.Control type="text" placeholder="Insira o nome do jogo" size="lg" />
+                        <Form.Control autoFocus type="text" placeholder="Insira o nome do jogo" size="lg" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="descricao">
                         <Form.Label>Sinopse</Form.Label>
