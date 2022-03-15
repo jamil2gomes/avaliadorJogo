@@ -1,22 +1,20 @@
 
     .itemJogo{
         width: 16rem; 
+        margin-right: 10px;
         border-radius: 10px;
         color:indigo;
+        border: 1px solid indigo;
+        padding: 5px;
     }
 
 .itemJogo:hover{
     transform: scale(1.04);
     transition: .8s;
-    color: rgb(14, 100, 3);
+    box-shadow: 5px 5px 5px 5px rgba(56, 3, 66, 0.322);
 
 }
 
-.itemJogo:hover button{
-    
-    background-color: rgb(14, 100, 3);
-    color: white;
-}
 
 @media(min-width:768px) {
 

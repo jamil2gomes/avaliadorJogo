@@ -4,6 +4,10 @@
     margin:0;
 }
 
+.containerHome{
+    background-color: #E5E5E5;
+}
+
 .lista-group{
     display: flex;
     padding:0;
@@ -11,6 +15,10 @@
     flex-wrap: wrap; 
     align-items: center;
     justify-content: center;
+}
+
+.apresentacao{
+    display: none;
 }
 
 
@@ -23,6 +31,21 @@
     .container{
         align-items: flex-start;
         justify-content: flex-start;
+    }
+
+    .apresentacao{
+        display: block;  
+    }
+
+    .containerApresentacao{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+       
+    }
+    .apresentacaoTexto p{
+       color: #BF704D;
     }
   
 }

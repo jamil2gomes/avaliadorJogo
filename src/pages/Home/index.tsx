@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom"
 //icones
 import { FiArrowRight } from "react-icons/fi";
-
+import professor from '../../assets/professor.png';
 //estilos
 import "./home.css";
 
@@ -10,6 +10,7 @@ import "./home.css";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import ItemJogo from "../../components/ItemJogo";
+import Image    from 'react-bootstrap/Image';
 
 ;
 const data = [
@@ -25,7 +26,19 @@ const Home = () => {
     }
 
     return (
-        <Container fluid className="container">
+        <Container fluid className="container containerHome">
+
+            <div className="apresentacao">
+               <div className="containerApresentacao">
+                <div className="apresentacaoTexto">
+                    <h1>Bem vindo professor,</h1>
+                    <p>agora você tem uma espaço para avaliar jogos digitais
+                     educacionais e recomendá-los para outros professores.</p>
+                    </div>
+                    <Image src={professor} width={500} height={500}/>
+               </div>
+                
+            </div>
             
             <section className="my-4 secaoJogos">
                 <h2 >Jogos em Alta <FiArrowRight /></h2>
