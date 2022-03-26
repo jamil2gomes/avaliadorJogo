@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { pegarTodosJogos } from "../../services/telaInicial";
 //icones
 import { FiArrowRight } from "react-icons/fi";
 import professor from '../../assets/professor.png';
@@ -8,9 +8,13 @@ import "./home.css";
 
 //componentes
 import Container from "react-bootstrap/Container";
+import Loading from "../../components/Loading";
 import ListGroup from "react-bootstrap/ListGroup";
 import ItemJogo from "../../components/ItemJogo";
 import Image    from 'react-bootstrap/Image';
+import { JogoResumo } from "../../interfaces";
+import CardGroup  from "react-bootstrap/CardGroup";
+import MsgErro from "../../components/MsgErro";
 
 ;
 const data = [
@@ -18,11 +22,24 @@ const data = [
 ]
 
 const Home = () => {
+    const [loading, setLoading] = useState(false);
+    const [msgErr, setMsgErro] = useState(false);
+    const [msgErrText, setMsgErroText] = useState('');
+    const [jogos, setJogos] = useState<JogoResumo[]>([]);
 
-    let navigate = useNavigate();
+    useEffect(()=>{pegarJogos()},[]);
 
-    function onClickItem(id:number){
-        navigate(`/detalhes/${id}`);
+    const pegarJogos = async() => {
+        setLoading(true);
+        try {
+           const response = await pegarTodosJogos();
+            setJogos(response.data);
+        } catch (error) {
+            setMsgErroText("Ocorreu um erro ao carregar os jogos. Tente novamente.");
+            setMsgErro(true);
+        }finally{
+            setLoading(false);
+        }
     }
 
     return (
@@ -39,35 +56,27 @@ const Home = () => {
                </div>
                 
             </div>
-            
-            <section className="my-4 secaoJogos">
-                <h2 >Jogos em Alta <FiArrowRight /></h2>
-                <ul className="lista-group">
-                    {
-                        data.map((item, index) => (
-                            <li key={index} onClick={()=>onClickItem(item)} className="me-3 my-2" style={{ backgroundColor: "transparent", border: 0, padding: 0, margin:0 }}>
-                                <ItemJogo nomeJogo={item}/>
-                            </li>
-                        ))
-                    }
+            {
+                !loading ?
+                    <section className="my-4 secaoJogos">
+                    <h2 >Jogos em Alta <FiArrowRight /></h2>
+                    <CardGroup className="lista-group">
+                        {
+                            jogos.map((item) => (
+                     
+                                <ItemJogo key={item.id} data={item}/>
+                            ))
+                        }
 
-                </ul>
-            </section>
+                    </CardGroup>
+                </section> : <Loading/>
+            }
 
-            <section className="my-4">
-                <h2>Adicionados recentemente<FiArrowRight /></h2>
-                <ul className="lista-group">
-                    {
-                        data.map((item,index) => (
-                            <li key={index} onClick={()=>onClickItem(item)} className="me-3 my-2" style={{ backgroundColor: "transparent", border: 0, padding: 0 }}>
-                                <ItemJogo nomeJogo={item}/>
-                            </li>
-                        ))
-                    }
-
-                </ul>
-            </section>
-
+            <MsgErro
+             mensagem={msgErrText}
+             show={msgErr}
+             onHide={()=>setMsgErro(false)}
+            />
         </Container>
     )
 }

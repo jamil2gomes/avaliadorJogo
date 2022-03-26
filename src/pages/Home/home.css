@@ -10,6 +10,7 @@
 
 .lista-group{
     display: flex;
+    list-style: none;
     padding:0;
     flex-direction: column;
     flex-wrap: wrap; 
