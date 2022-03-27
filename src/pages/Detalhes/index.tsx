@@ -331,7 +331,7 @@ const Detalhes = () => {
                         </aside>
                             {/* NOTAS POR PLATAFORMA */}
                         {
-                            mediaDoJogoPorPlataforma &&
+                            mediaDoJogoPorPlataforma && mediaDoJogoPorPlataforma.length > 0 &&
                             <aside className="my-4 tabela">
                             <h3>Notas por plataforma</h3>
                             <Table striped bordered hover responsive>

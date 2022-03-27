@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import Detalhes from "../pages/Detalhes";
 import IncluirJogo from "../pages/IncluirJogo";
 import Avaliacao from "../pages/Avaliacao";
+import Login from "../pages/Login";
 
 const Rotas = () => {
 
@@ -20,6 +21,8 @@ const Rotas = () => {
                     <Route path="avaliar/:id" element={<Avaliacao />} />
                     <Route path="incluir/jogo" element={<IncluirJogo />} />
                 </Route>
+                <Route path="login" element={<Login />}/>
+                <Route path="cadastrar" element={<Login />}/>
             </Routes>    
         </BrowserRouter>
     );

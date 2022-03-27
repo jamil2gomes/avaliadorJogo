@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,10 +7,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 import Image from 'react-bootstrap/Image'
+import {RiUser3Fill} from 'react-icons/ri';
 import logo from '../../assets/logo.png';
 import "./navbar.css";
 
 export default function NavBar() {
+  let navigate = useNavigate();
   return (
     <>
       <Navbar fixed='top' bg="light" expand="lg" variant="light">
@@ -33,9 +35,16 @@ export default function NavBar() {
                 className="me-2"
                 aria-label="Search"
               />
-              <Button variant="outline-success">Procurar</Button>
+              <Button  variant="outline-success" className="me-4">Procurar</Button>
+
+              <Button onClick={()=>navigate('/login')} variant="outline-primary" className=' d-flex align-items-center justify-content-center mx-3' style={{padding:10}}>
+              <RiUser3Fill /> 
+              Logar
+            </Button>
             </Form>
+           
           </Navbar.Collapse>
+         
         </Container>
       </Navbar>
     </>
