@@ -5,6 +5,26 @@ export interface JogoResumo {
     id:number;
 }
 
+export interface MediaGeralJogo{
+    media: number;
+    quantidaAvaliacoes: number;
+    medias:{
+        Audio:number;
+        Feedback: number;
+        Cores: number;
+        Interface: number;
+    }
+}
+
+export interface MediasPorPlataforma{
+    media: number;
+    Plataforma:{descricao:string;};
+    audio:string;
+    feedback: string;
+    cores: string;
+    interface: string;
+}
+
 export interface DetalhesJogo{
     id: number;
     nome:string;
