@@ -10,6 +10,8 @@ import { RiInformationLine } from 'react-icons/ri';
 import "./avaliacao.css";
 //utilitarios
 import { retornaCorDaNota } from "../../util";
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 
 type ConteudoModal = {titulo:string, conteudo:string, link:Links}
 
@@ -72,6 +74,7 @@ const Avaliacao: React.FC = () => {
 
     return (
         <>
+        <NavBar exibirPesquisa={false}/>
     <Container fluid className="containerAvaliacao">
         <h2 className="my-2">Avaliação</h2>
         <main className="principal my-4 mx-auto">
@@ -300,6 +303,7 @@ const Avaliacao: React.FC = () => {
                 </section>
             </main>
         </Container>
+        <Footer/>
         <Dialog 
         id={conteudoModal.link} 
         titulo={conteudoModal.titulo}
@@ -307,6 +311,7 @@ const Avaliacao: React.FC = () => {
         show={modalShow} 
         onHide={handleClose}
         />
+
     </>
     );
 }

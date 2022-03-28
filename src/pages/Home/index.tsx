@@ -15,17 +15,21 @@ import Image    from 'react-bootstrap/Image';
 import { JogoResumo } from "../../interfaces";
 import CardGroup  from "react-bootstrap/CardGroup";
 import MsgErro from "../../components/MsgErro";
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 
-;
-const data = [
-    1, 2, 3, 4, 5
-]
 
 const Home = () => {
     const [loading, setLoading] = useState(false);
     const [msgErr, setMsgErro] = useState(false);
     const [msgErrText, setMsgErroText] = useState('');
+    const [busca, setBusca] = useState('');
     const [jogos, setJogos] = useState<JogoResumo[]>([]);
+   
+    const lowerBusca = busca.toLowerCase();
+    const jogoFiltrado = jogos.filter((jogo)=>jogo.nome.toLowerCase().includes(lowerBusca));
+
+
 
     useEffect(()=>{pegarJogos()},[]);
 
@@ -42,42 +46,52 @@ const Home = () => {
         }
     }
 
+
+
     return (
-        <Container fluid className="container containerHome">
-
-            <div className="apresentacao">
-               <div className="containerApresentacao">
-                <div className="apresentacaoTexto">
-                    <h1>Bem vindo professor,</h1>
-                    <p>agora você tem uma espaço para avaliar jogos digitais
-                     educacionais e recomendá-los para outros professores.</p>
-                    </div>
-                    <Image src={professor} width={500} height={500}/>
-               </div>
-                
-            </div>
-            {
-                !loading ?
-                    <section className="my-4 secaoJogos">
-                    <h2 >Jogos em Alta <FiArrowRight /></h2>
-                    <CardGroup className="lista-group">
-                        {
-                            jogos.map((item) => (
-                     
-                                <ItemJogo key={item.id} data={item}/>
-                            ))
-                        }
-
-                    </CardGroup>
-                </section> : <Loading/>
-            }
-
-            <MsgErro
-             mensagem={msgErrText}
-             show={msgErr}
-             onHide={()=>setMsgErro(false)}
+        <>
+            <NavBar
+                value={busca}
+                onChange={(event)=>setBusca(event.target.value)}
+                onclick={(e)=>setBusca(e.currentTarget.value)}
             />
-        </Container>
+                <Container fluid className="container containerHome">
+
+                <div className="apresentacao">
+                <div className="containerApresentacao">
+                    <div className="apresentacaoTexto">
+                        <h1>Bem vindo professor,</h1>
+                        <p>agora você tem uma espaço para avaliar jogos digitais
+                        educacionais e recomendá-los para outros professores.</p>
+                        </div>
+                        <Image src={professor} width={500} height={500}/>
+                </div>
+                    
+                </div>
+                {
+                    !loading ?
+                        <section className="my-4 secaoJogos">
+                        <h2 >Jogos em Alta <FiArrowRight /></h2>
+                        <CardGroup className="lista-group">
+                            {
+                                jogoFiltrado.map((item) => (
+                        
+                                    <ItemJogo key={item.id} data={item}/>
+                                ))
+                            }
+
+                        </CardGroup>
+                    </section> : <Loading/>
+                }
+
+                <MsgErro
+                mensagem={msgErrText}
+                show={msgErr}
+                onHide={()=>setMsgErro(false)}
+                />
+            </Container>
+        <Footer/>
+        </>
     )
 }
 

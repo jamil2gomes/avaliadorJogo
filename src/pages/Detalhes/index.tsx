@@ -25,16 +25,8 @@ import { retornaCorDaNota } from "../../util";
 import "./detalhes.css";
 
 //imagens
-import {
-    RiWindowsFill,
-    RiPlaystationFill,
-    RiXboxFill,
-    RiAndroidFill,
-    RiAppStoreFill,
-    RiAddCircleLine,
-} from "react-icons/ri";
-import { FaInternetExplorer } from "react-icons/fa";
-import { SiNintendoswitch } from "react-icons/si";
+import {RiAddCircleLine,} from "react-icons/ri";
+
 
 import logo from "../../assets/jogogenerico.png";
 import { DetalhesJogo, MediaGeralJogo, MediasPorPlataforma } from "../../interfaces";
@@ -43,6 +35,8 @@ import {
     pegarMediaDeAvaliacaoDoJogo,
     pegarMediaDeAvaliacaoDoJogoPorPlataformas,
 } from "../../services/telaDetalhesJogo";
+import Footer from "../../components/Footer";
+import NavBar from "../../components/NavBar";
 
 const data = {
     default: [
@@ -77,7 +71,7 @@ const Detalhes = () => {
 
     useEffect(() => {
         pegarDetalhesDoJogo(`${id}`);
-    }, []);
+    }, [id]);
 
     function calcularMedia(...valores:string[]){
 
@@ -116,7 +110,9 @@ const Detalhes = () => {
     };
 
     return (
-        <Container fluid className="containerDetalhe">
+       <>
+            <NavBar exibirPesquisa={false}/>
+             <Container fluid className="containerDetalhe">
             {!loading ? (
                 <>
                     <header className="headerDetalhe">
@@ -378,7 +374,9 @@ const Detalhes = () => {
                 show={msgErr}
                 onHide={() => setMsgErro(false)}
             />
+            <Footer/>
         </Container>
+       </>
     );
 };
 
