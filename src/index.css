@@ -70,11 +70,11 @@ code {
     display:flex;
     align-items:center;
     justify-content: center;
-    width: 50px;
+    width: 70px;
     color:white;
 	font-weight: 600;
 	font-size: 1.1em;
-    height: 50px;
+    height: 70px;
     border-radius: 50%;
 }
 

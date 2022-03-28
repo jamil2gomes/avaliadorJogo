@@ -14,12 +14,12 @@ const Rotas = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<App />}>
+                   <Route path="/" element={<App />}/>
                     <Route index element={<Home />} />
                     <Route path="detalhes/:id" element={<Detalhes />} />
                     <Route path="avaliar/:id" element={<Avaliacao />} />
                     <Route path="incluir/jogo" element={<IncluirJogo />} />
-                </Route>
+               
             </Routes>    
         </BrowserRouter>
     );
