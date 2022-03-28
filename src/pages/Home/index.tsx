@@ -64,14 +64,13 @@ const Home = () => {
                         <p>agora você tem uma espaço para avaliar jogos digitais
                         educacionais e recomendá-los para outros professores.</p>
                         </div>
-                        <Image src={professor} width={500} height={500}/>
+                        <Image src={professor} width={400} height={400}/>
                 </div>
                     
                 </div>
                 {
                     !loading ?
                         <section className="my-4 secaoJogos">
-                        <h2 >Jogos em Alta <FiArrowRight /></h2>
                         <CardGroup className="lista-group">
                             {
                                 jogoFiltrado.map((item) => (
