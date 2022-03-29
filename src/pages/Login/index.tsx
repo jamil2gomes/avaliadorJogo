@@ -1,69 +1,168 @@
 import { FormEventHandler, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 import Image from 'react-bootstrap/Image';
 import criancas from '../../assets/criancas.png';
 import './login.css';
 const Login = () => {
 
-    const [validated, setValidated] = useState(false);
+    const [validatedLogin, setValidatedLogin] = useState(false);
+    const [validatedCadastro, setValidatedCadastro] = useState(false);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    const [emailCadastro, setEmailCadastro] = useState('');
+    const [senhaCadastro, setSenhaCadastro] = useState('');
+    const [nomeCadastro, setNomeCadastro] = useState('');
+    const [nickCadastro, setNickCadastro] = useState('');
 
    
 
     return(
         <div className='d-flex'>
-            <div className ="d-flex align-items-center flex-column justify-content-center containerForm">
-                <h1>Login</h1>
-            <Form 
+        <div className ="d-flex align-items-center flex-column justify-content-center containerForm">
+            <Tabs
+            id="controlled-tab-example"
+            className="mb-3"
+            onSelect={(e)=>{
+                if(e === 'cadastro'){
+                    setValidatedCadastro(false);
+                }else{
+                    setValidatedLogin(false);
+                }
+            }}
             style={{width:'80%'}} 
-            noValidate 
-            validated={validated} 
-            onSubmit={(e)=>{
-                 const form = e.currentTarget;
-                 if (form.checkValidity() === false) {
-                   e.preventDefault();
-                   e.stopPropagation();
-                 }
-             
-                 setValidated(true);
-            }}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control 
-                  value={email} 
-                  onChange={(e)=>setEmail(e.target.value)} 
-                  size='lg' 
-                  type="email" 
-                  placeholder="Insira seu email" 
-                  autoFocus 
-                  required 
-                  />
-                  <Form.Control.Feedback type="invalid">Campo email inválido. Digite um formato de email válido.</Form.Control.Feedback>
-              </Form.Group>
-  
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Senha</Form.Label>
-                  <Form.Control 
-                  value={senha} 
-                  onChange={(e)=>setSenha(e.target.value)} 
-                  size='lg' 
-                  type="password" 
-                  minLength={4} 
-                  maxLength={8}  
-                  placeholder="Insira sua senha" 
-                  required 
-                  />
-                  <Form.Control.Feedback type="invalid">Senha precisa ter no mínimo 4 caracteres e no máximo 8 caracteres</Form.Control.Feedback>
-              </Form.Group>
-              <Button 
-              variant="primary" 
-              type='submit'
-              >
-                Logar
-              </Button>
-          </Form>
+            >
+            <Tab eventKey="login" title="Login">
+                <Form 
+                style={{width:'100%'}} 
+                noValidate 
+                validated={validatedLogin} 
+                onSubmit={(e)=>{
+                    const form = e.currentTarget;
+                    if (form.checkValidity() === false) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    }
+                
+                    setValidatedLogin(true);
+                }}>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email*</Form.Label>
+                    <Form.Control 
+                    value={email} 
+                    onChange={(e)=>setEmail(e.target.value)} 
+                    size='lg' 
+                    type="email" 
+                    placeholder="Insira seu email" 
+                    autoFocus 
+                    required 
+                    />
+                    <Form.Control.Feedback type="invalid">Campo email inválido. Digite um formato de email válido.</Form.Control.Feedback>
+                </Form.Group>
+    
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Senha*</Form.Label>
+                    <Form.Control 
+                    value={senha} 
+                    onChange={(e)=>setSenha(e.target.value)} 
+                    size='lg' 
+                    type="password" 
+                    minLength={4} 
+                    maxLength={8}  
+                    placeholder="Insira sua senha" 
+                    required 
+                    />
+                    <Form.Control.Feedback type="invalid">Senha precisa ter no mínimo 4 caracteres e no máximo 8 caracteres</Form.Control.Feedback>
+                </Form.Group>
+                <Button 
+                variant="primary" 
+                type='submit'
+                >
+                    Logar
+                </Button>
+            </Form>
+            </Tab>
+        <Tab eventKey="cadastro" title="Cadastro">
+        <Form 
+                style={{width:'100%'}} 
+                noValidate 
+                validated={validatedCadastro} 
+                onSubmit={(e)=>{
+                    const form = e.currentTarget;
+                    if (form.checkValidity() === false) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    }
+                
+                    setValidatedCadastro(true);
+                }}>
+                <Form.Group className="mb-3" controlId="formCadastroNome">
+                    <Form.Label>Nome*</Form.Label>
+                    <Form.Control 
+                    value={nomeCadastro} 
+                    onChange={(e)=>setNomeCadastro(e.target.value)} 
+                    size='lg' 
+                    minLength={4}
+                    type="text" 
+                    placeholder="Insira seu nome completo" 
+                    autoFocus 
+                    required 
+                    />
+                    <Form.Control.Feedback type="invalid">Campo nome precisa ter no mínimo 4 caracteres </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formCadastroNick">
+                    <Form.Label>Nickname</Form.Label>
+                    <Form.Control 
+                    value={nickCadastro} 
+                    onChange={(e)=>setNickCadastro(e.target.value)} 
+                    size='lg' 
+                    type="text" 
+                    minLength={4}
+                    placeholder="Insira um apelido" 
+                    autoFocus 
+                    />
+                    <Form.Control.Feedback type="invalid">Campo apelido precisa ter no mínimo 4 caracteres </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formCadastroEmail">
+                    <Form.Label>Email*</Form.Label>
+                    <Form.Control 
+                    value={emailCadastro} 
+                    onChange={(e)=>setEmailCadastro(e.target.value)} 
+                    size='lg' 
+                    type="email" 
+                    placeholder="Insira seu email" 
+                    autoFocus 
+                    required 
+                    />
+                    <Form.Control.Feedback type="invalid">Campo email inválido. Digite um formato de email válido.</Form.Control.Feedback>
+                </Form.Group>
+    
+                <Form.Group className="mb-3" controlId="formCadastroSenha">
+                    <Form.Label>Senha*</Form.Label>
+                    <Form.Control 
+                    value={senhaCadastro} 
+                    onChange={(e)=>setSenhaCadastro(e.target.value)} 
+                    size='lg' 
+                    type="password" 
+                    minLength={4}
+                    maxLength={8}  
+                    placeholder="Insira sua senha" 
+                    required 
+                    />
+                    <Form.Control.Feedback type="invalid">Senha precisa ter no mínimo 4 caracteres e no máximo 8 caracteres</Form.Control.Feedback>
+                </Form.Group>
+                <Button 
+                variant="primary" 
+                type='submit'
+                >
+                    Cadastrar
+                </Button>
+            </Form>
+        </Tab>
+        </Tabs>
+        
         </div>
         <div className ="containerImagem">
             <div className ="d-flex align-items-center justify-content-center">

@@ -14,12 +14,12 @@
 @media(min-width:1024px) {
 
     .containerForm{
-        width:800px;
+        width:40%;
     }
 
     .containerImagem{
         display: block;
-        width:100%;
+        width:60%;
         background: rgb(21,182,214);
         background: linear-gradient(90deg, rgba(21,182,214,1) 0%, rgba(21,214,214,1) 100%);
     }
