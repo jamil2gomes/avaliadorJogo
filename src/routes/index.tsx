@@ -19,7 +19,10 @@ const Rotas = () => {
                    <Route path="/" element={<App />}/>
                     <Route index element={<Home />} />
                     <Route path="detalhes/:id" element={<Detalhes />} />
-                    <Route path="avaliar/:id" element={<Avaliacao />} />
+                    <Route path="avaliar/:id" element={
+                        <RequireAuth>
+                            <Avaliacao/>
+                        </RequireAuth>} />
                     <Route path="incluir/jogo" 
                     element={
                         <RequireAuth>

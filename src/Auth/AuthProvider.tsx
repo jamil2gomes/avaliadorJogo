@@ -7,7 +7,7 @@ export const AuthProvider = ({children}:{children:JSX.Element})=>{
     const[usuario, setUsuario] = useState<Usuario|null>(null);
     
     useEffect(()=>{
-        const recuperarDados = async() =>{
+        const recuperarDados =() =>{
            
             const pegarUsuario = localStorage.getItem('usuario');
                 if(pegarUsuario){

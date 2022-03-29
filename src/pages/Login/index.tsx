@@ -36,6 +36,7 @@ const Login = ({location}:{location?:string}) => {
 
   
     const handleLogin = async(event: React.FormEvent<HTMLFormElement>)=>{
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();

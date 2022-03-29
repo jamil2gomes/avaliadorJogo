@@ -54,7 +54,9 @@ const NavBar:React.FC<NavBarProp>= ({exibirPesquisa=true, ...rest}) =>{
                aria-label="Search"
                {...rest}
              />
-             <DropdownButton id="dropdown-basic-button" title={usuario?`Olá, ${usuario.nickname}`:'Olá, visitante'}>
+           </Form>
+           }
+            <DropdownButton variant={usuario?'success':'primary'} id="dropdown-basic-button" title={usuario?`Olá, ${usuario.nickname}`:'Olá, visitante '}>
               {
                 !usuario &&
                 <Dropdown.Item onClick={()=>navigate('login')} >Logar</Dropdown.Item>
@@ -65,8 +67,6 @@ const NavBar:React.FC<NavBarProp>= ({exibirPesquisa=true, ...rest}) =>{
                 <Dropdown.Item onClick={()=>handleSignOut()}>Sair</Dropdown.Item>
               }
               </DropdownButton>
-           </Form>
-           }
           </Navbar.Collapse>
          
         </Container>
