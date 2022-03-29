@@ -1,4 +1,4 @@
-import { FormEventHandler, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
@@ -8,12 +8,21 @@ import criancas from '../../assets/criancas.png';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Auth/AuthContext';
-const Login = ({location=null}:{location?:string|null}) => {
+import MsgErro from '../../components/MsgErro';
+import Loading from '../../components/Loading';
+
+type LocationProps = {
+    state: {
+      from: Location;
+    };
+  };
+const Login = ({location}:{location?:string}) => {
 
     const [validatedLogin, setValidatedLogin] = useState(false);
     const [validatedCadastro, setValidatedCadastro] = useState(false);
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
+    
     const [emailCadastro, setEmailCadastro] = useState('');
     const [senhaCadastro, setSenhaCadastro] = useState('');
     const [nomeCadastro, setNomeCadastro] = useState('');
@@ -25,31 +34,39 @@ const Login = ({location=null}:{location?:string|null}) => {
     const {signIn} = useContext(AuthContext);
 
 
+  
+    const handleLogin = async(event: React.FormEvent<HTMLFormElement>)=>{
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        setValidatedLogin(true);
 
-    const handleLogin = async()=>{
-       
         if(email && senha){
             try {
                 setLoading(true);
                 await signIn(email, senha);
-                navigate(location?location:'/');
-
+                navigate(location??'/')
+                window.location.href = window.location.href;
             } catch (error:any) {
-                setMsgErroText(`Ocorreu um erro ao logar. Erro:${error}`);
+                setMsgErroText(`Ocorreu um erro ao logar. ${error}`);
                 setMsgErro(true);
                 setEmail('');
                 setSenha('');
-                console.log(error)
             }finally{
                 setLoading(false);
             }
         }
+        
     }
    
 
     return(
         <div className='d-flex'>
-        <div className ="d-flex align-items-center flex-column justify-content-center containerForm">
+        {
+            !loading ?
+            <div className ="d-flex align-items-center flex-column justify-content-center containerForm">
             <Tabs
             id="controlled-tab-example"
             className="mb-3"
@@ -67,15 +84,7 @@ const Login = ({location=null}:{location?:string|null}) => {
                 style={{width:'100%'}} 
                 noValidate 
                 validated={validatedLogin} 
-                onSubmit={(e)=>{
-                    const form = e.currentTarget;
-                    if (form.checkValidity() === false) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    }
-                
-                    setValidatedLogin(true);
-                }}>
+                onSubmit={handleLogin}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email*</Form.Label>
                     <Form.Control 
@@ -98,17 +107,16 @@ const Login = ({location=null}:{location?:string|null}) => {
                     size='lg' 
                     type="password" 
                     minLength={4} 
-                    maxLength={8}  
+                    maxLength={16}  
                     placeholder="Insira sua senha" 
                     required 
                     />
-                    <Form.Control.Feedback type="invalid">Senha precisa ter no mínimo 4 caracteres e no máximo 8 caracteres</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">Senha precisa ter no mínimo 4 caracteres e no máximo 16 caracteres</Form.Control.Feedback>
                 </Form.Group>
                 
                     <Button 
                     variant="primary" 
                     type='submit'
-                    onClick={()=>handleLogin()}
                     >
                     Logar
                     </Button>
@@ -194,12 +202,19 @@ const Login = ({location=null}:{location?:string|null}) => {
         </Tab>
         </Tabs>
         
-        </div>
+        </div>: <Loading />
+
+        }
         <div className ="containerImagem">
-            <div className ="d-flex align-items-center justify-content-center">
+            <div className ="d-flex align-items-center justify-content-center" style={{height:'100vh'}}>
                 <Image fluid src={criancas} width={400} height={400} />
             </div>
         </div>
+        <MsgErro
+         show={msgErro}
+         mensagem={msgErroText}
+         onHide={()=>setMsgErro(false)}
+        />
         </div>
     )
 }

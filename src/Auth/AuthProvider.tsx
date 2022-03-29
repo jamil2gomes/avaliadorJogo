@@ -11,27 +11,27 @@ export const AuthProvider = ({children}:{children:JSX.Element})=>{
            
             const pegarUsuario = localStorage.getItem('usuario');
                 if(pegarUsuario){
-                    console.log('entrei aki', pegarUsuario)
                     setUsuario(JSON.parse(pegarUsuario));
                 }
         }
 
         recuperarDados();
-    },[])
+    },[setUsuario])
 
     const signIn = async (email:string, senha:string) => {
 
         try {
             const response = await realizarLogin(email, senha);
             localStorage.setItem('usuario', JSON.stringify(response.data));
+            return true;
         } catch (error:any) {
            throw new Error(error.response.data); 
         }
     }
 
     const signOut = ()=>{
-        setUsuario(null);
         localStorage.removeItem("usuario");
+        setUsuario(null);
     }
 
 

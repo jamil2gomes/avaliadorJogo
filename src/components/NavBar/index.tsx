@@ -1,25 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import DropdownButton  from "react-bootstrap/DropdownButton";
+import Dropdown from 'react-bootstrap/Dropdown'
 import FormControl, { FormControlProps } from 'react-bootstrap/FormControl';
 import Image from 'react-bootstrap/Image'
 import logo from '../../assets/logo.png';
 
 
 import "./navbar.css";
+import { AuthContext } from "../../Auth/AuthContext";
 
 
 interface NavBarProp extends FormControlProps{
   exibirPesquisa?:boolean;
-  onclick?: React.MouseEventHandler<HTMLButtonElement>;
+ 
 }
 
-const NavBar:React.FC<NavBarProp>= ({onclick,exibirPesquisa=true, ...rest}) =>{
-  
+const NavBar:React.FC<NavBarProp>= ({exibirPesquisa=true, ...rest}) =>{
+  const {usuario, signOut} = useContext(AuthContext);
+  let navigate =  useNavigate();
+
+  const handleSignOut = () => {
+    signOut();
+    navigate("/");
+    window.location.href = window.location.href;
+  }
   return (
     <>
       <Navbar fixed='top' bg="light" expand="lg" variant="light">
@@ -45,7 +54,17 @@ const NavBar:React.FC<NavBarProp>= ({onclick,exibirPesquisa=true, ...rest}) =>{
                aria-label="Search"
                {...rest}
              />
-             <Button onClick={onclick} variant="outline-success">Procurar</Button>
+             <DropdownButton id="dropdown-basic-button" title={usuario?`Olá, ${usuario.nickname}`:'Olá, visitante'}>
+              {
+                !usuario &&
+                <Dropdown.Item onClick={()=>navigate('login')} >Logar</Dropdown.Item>
+              }
+              
+              {
+                usuario && 
+                <Dropdown.Item onClick={()=>handleSignOut()}>Sair</Dropdown.Item>
+              }
+              </DropdownButton>
            </Form>
            }
           </Navbar.Collapse>

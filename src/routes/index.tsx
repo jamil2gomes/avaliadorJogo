@@ -1,5 +1,4 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Routes, Route, Navigate } from "react-router-dom";
 
 // PAGES
 import App from "../App";
@@ -16,7 +15,6 @@ const Rotas = () => {
 
     return (
        <AuthProvider>
-            <BrowserRouter>
             <Routes>
                    <Route path="/" element={<App />}/>
                     <Route index element={<Home />} />
@@ -25,12 +23,12 @@ const Rotas = () => {
                     <Route path="incluir/jogo" 
                     element={
                         <RequireAuth>
-                            <IncluirJogo />
+                            <IncluirJogo/>
                         </RequireAuth>
                     } />  
-                    <Route path="login" element={<Login/>} />      
+                    <Route path="login" element={<Login/>} />
+                    <Route path="*" element={<Navigate to="/" replace />} />      
             </Routes>    
-        </BrowserRouter>
        </AuthProvider>
     );
 }

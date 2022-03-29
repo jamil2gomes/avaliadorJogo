@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { pegarTodosJogos } from "../../services/telaInicial";
-//icones
-import { FiArrowRight } from "react-icons/fi";
 import professor from '../../assets/professor.png';
 //estilos
 import "./home.css";
@@ -9,7 +7,6 @@ import "./home.css";
 //componentes
 import Container from "react-bootstrap/Container";
 import Loading from "../../components/Loading";
-import ListGroup from "react-bootstrap/ListGroup";
 import ItemJogo from "../../components/ItemJogo";
 import Image    from 'react-bootstrap/Image';
 import { JogoResumo } from "../../interfaces";
@@ -53,7 +50,6 @@ const Home = () => {
             <NavBar
                 value={busca}
                 onChange={(event)=>setBusca(event.target.value)}
-                onclick={(e)=>setBusca(e.currentTarget.value)}
             />
                 <Container fluid className="container containerHome">
 

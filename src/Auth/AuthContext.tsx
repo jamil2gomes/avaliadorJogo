@@ -3,7 +3,7 @@ import { Usuario } from "../interfaces";
 
 export interface AuthContextType{
     usuario:Usuario|null;
-    signIn:(email:string, senha:string) => Promise<void>;
+    signIn:(email:string, senha:string) => Promise<boolean>;
     signOut:()=>void;
 }
 
