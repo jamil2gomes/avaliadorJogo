@@ -8,21 +8,30 @@ import Detalhes from "../pages/Detalhes";
 import IncluirJogo from "../pages/IncluirJogo";
 import Avaliacao from "../pages/Avaliacao";
 import Login from "../pages/Login";
+import { AuthProvider } from "../Auth/AuthProvider";
+import RequireAuth from "../Auth/RequireAuth";
 
 const Rotas = () => {
 
 
     return (
-        <BrowserRouter>
+       <AuthProvider>
+            <BrowserRouter>
             <Routes>
                    <Route path="/" element={<App />}/>
                     <Route index element={<Home />} />
                     <Route path="detalhes/:id" element={<Detalhes />} />
                     <Route path="avaliar/:id" element={<Avaliacao />} />
-                    <Route path="incluir/jogo" element={<IncluirJogo />} />  
+                    <Route path="incluir/jogo" 
+                    element={
+                        <RequireAuth>
+                            <IncluirJogo />
+                        </RequireAuth>
+                    } />  
                     <Route path="login" element={<Login/>} />      
             </Routes>    
         </BrowserRouter>
+       </AuthProvider>
     );
 }
 

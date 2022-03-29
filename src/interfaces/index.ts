@@ -46,3 +46,12 @@ export interface Plataforma{
     descricao: string;
 }
 
+export interface Usuario{
+    id:number;
+    nome:string;
+    nickname:string;
+    role:string;
+    token:string;
+    
+}
+

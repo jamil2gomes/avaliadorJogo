@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, useContext, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
@@ -6,7 +6,9 @@ import Tab from 'react-bootstrap/Tab';
 import Image from 'react-bootstrap/Image';
 import criancas from '../../assets/criancas.png';
 import './login.css';
-const Login = () => {
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Auth/AuthContext';
+const Login = ({location=null}:{location?:string|null}) => {
 
     const [validatedLogin, setValidatedLogin] = useState(false);
     const [validatedCadastro, setValidatedCadastro] = useState(false);
@@ -16,7 +18,33 @@ const Login = () => {
     const [senhaCadastro, setSenhaCadastro] = useState('');
     const [nomeCadastro, setNomeCadastro] = useState('');
     const [nickCadastro, setNickCadastro] = useState('');
+    const [msgErro, setMsgErro] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [msgErroText, setMsgErroText] = useState('');
+    let navigate = useNavigate();
+    const {signIn} = useContext(AuthContext);
 
+
+
+    const handleLogin = async()=>{
+       
+        if(email && senha){
+            try {
+                setLoading(true);
+                await signIn(email, senha);
+                navigate(location?location:'/');
+
+            } catch (error:any) {
+                setMsgErroText(`Ocorreu um erro ao logar. Erro:${error}`);
+                setMsgErro(true);
+                setEmail('');
+                setSenha('');
+                console.log(error)
+            }finally{
+                setLoading(false);
+            }
+        }
+    }
    
 
     return(
@@ -76,12 +104,15 @@ const Login = () => {
                     />
                     <Form.Control.Feedback type="invalid">Senha precisa ter no mínimo 4 caracteres e no máximo 8 caracteres</Form.Control.Feedback>
                 </Form.Group>
-                <Button 
-                variant="primary" 
-                type='submit'
-                >
+                
+                    <Button 
+                    variant="primary" 
+                    type='submit'
+                    onClick={()=>handleLogin()}
+                    >
                     Logar
-                </Button>
+                    </Button>
+               
             </Form>
             </Tab>
         <Tab eventKey="cadastro" title="Cadastro">
