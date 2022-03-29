@@ -9,16 +9,7 @@ import Footer from "../../components/Footer";
 import { pegarGeneros, pegarPlataformas } from "../../services/incluirJogo";
 import MsgErro from "../../components/MsgErro";
 import Loading from "../../components/Loading";
-;
-interface OptionProp {
-     value: number;
-     label: string;
-}
-
-interface GeneroPlataformaRequest{
-    id:number;
-    descricao:string;
-}
+import { GeneroPlataformaRequest, OptionProp } from "../../interfaces";
 
 const IncluirJogo = () => {
 

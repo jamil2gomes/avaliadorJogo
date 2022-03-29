@@ -12,3 +12,7 @@ export const pegarMediaDeAvaliacaoDoJogo = async(id) => {
 export const pegarMediaDeAvaliacaoDoJogoPorPlataformas = async(id) => {
     return await api.get(`jogos/${id}/avaliacao/plataformas`);
 }
+
+export const pegarAvaliacaoDoJogoDoUsuario = async(idJogo, idUsuario) => {
+    return await api.get(`jogos/${idJogo}/avaliacao/usuario/${idUsuario}`);
+}

@@ -55,3 +55,13 @@ export interface Usuario{
     
 }
 
+export interface OptionProp {
+    value: number;
+    label: string;
+}
+
+export interface GeneroPlataformaRequest{
+   id:number;
+   descricao:string;
+}
+

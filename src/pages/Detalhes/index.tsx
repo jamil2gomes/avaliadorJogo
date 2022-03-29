@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 //componentes
 import {
@@ -31,12 +31,14 @@ import {RiAddCircleLine,} from "react-icons/ri";
 import logo from "../../assets/jogogenerico.png";
 import { DetalhesJogo, MediaGeralJogo, MediasPorPlataforma } from "../../interfaces";
 import {
+    pegarAvaliacaoDoJogoDoUsuario,
     pegarDetalhesDoJogoPelo,
     pegarMediaDeAvaliacaoDoJogo,
     pegarMediaDeAvaliacaoDoJogoPorPlataformas,
 } from "../../services/telaDetalhesJogo";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
+import { AuthContext } from "../../Auth/AuthContext";
 
 const data = {
     default: [
@@ -59,6 +61,15 @@ const data = {
     ],
 };
 
+type NotasDoUsuario = {
+    id:number;
+    audio:number;
+    feedback:number; 
+    cores:number;
+    interface:number;
+    media:string;
+}
+
 const Detalhes = () => {
     const [loading, setLoading] = useState(false);
     const [msgErr, setMsgErro] = useState(false);
@@ -66,18 +77,39 @@ const Detalhes = () => {
     const [jogo, setJogo] = useState<DetalhesJogo>({} as DetalhesJogo);
     const [infoMediaJogo, setInfoMediaJogo] = useState<MediaGeralJogo>();
     const [notasDaPlataforma, setNotasDaPlataforma] = useState(data.default);
+    const [notasDoUsuario, setNotasDoUsuario] = useState<NotasDoUsuario| null>(null);
     const [mediaDoJogoPorPlataforma, setMediaDoJogoPorPlataforma] = useState<MediasPorPlataforma[]>([]);
+    const {usuario} = useContext(AuthContext);
     const { id } = useParams();
 
     useEffect(() => {
         pegarDetalhesDoJogo(`${id}`);
+       if(usuario){
+        pegarNotasDoUsuarioSobreOJogo();
+       }
     }, [id]);
 
-    function calcularMedia(...valores:string[]){
+    function calcularMedia(...valores:number[]){
 
-        const notas = valores.reduce((atual, total)=>parseFloat(total)+atual,0);
+        const notas = valores.reduce((atual, total)=>total+atual,0);
+        const media = notas/valores.length;
+        return media;
+    }
 
-        return notas/valores.length;
+    const pegarNotasDoUsuarioSobreOJogo = async() => {
+        setLoading(true);
+        try {
+            const response = await pegarAvaliacaoDoJogoDoUsuario(id, usuario!.id);
+            if(!response.data.mensagem){
+                setNotasDoUsuario(response.data);
+            }
+
+        } catch (error:any) {
+            setMsgErroText(`Ocorreu um erro ao carregar informações da nota do usuário sobre o jogo. Erro: ${error.message}`);
+            setMsgErro(true);
+        }finally {
+            setLoading(false);
+        }
     }
 
     const pegarDetalhesDoJogo = async (id: any) => {
@@ -159,7 +191,8 @@ const Detalhes = () => {
             
                         {/* NOTAS MEDIAS GERAL DO JOGO */}
                         <section className="listagemMetricasComNotas my-3">
-                            <h3>Notas do Jogo</h3>
+                           <div className='listagemMetricasComNotasContainer'>
+                           <h3>Notas do Jogo</h3>
                             <ListGroup as="ul" variant="flush">
                                 <ListGroup.Item
                                     as="li"
@@ -167,7 +200,7 @@ const Detalhes = () => {
                                     className="d-flex justify-content-between align-items-center"
                                 >
                                     <div>
-                                        <p>Áudio</p>
+                                        <p className="labelNota">Áudio</p>
                                     </div>
                                     <div
                                         className="notaMetrica"
@@ -186,7 +219,7 @@ const Detalhes = () => {
                                     className="d-flex justify-content-between align-items-center"
                                 >
                                     <div>
-                                        <p>Feedback</p>
+                                        <p className="labelNota">Feedback</p>
                                     </div>
                                     <div
                                         className="notaMetrica"
@@ -205,7 +238,7 @@ const Detalhes = () => {
                                     className="d-flex justify-content-between align-items-center"
                                 >
                                     <div>
-                                        <p>Cores</p>
+                                        <p className="labelNota">Cores</p>
                                     </div>
                                     <div
                                         className="notaMetrica"
@@ -224,7 +257,7 @@ const Detalhes = () => {
                                     className="d-flex justify-content-between align-items-center"
                                 >
                                     <div>
-                                        <p>Interface</p>
+                                        <p className="labelNota">Interface</p>
                                     </div>
                                     <div
                                         className="notaMetrica"
@@ -238,38 +271,113 @@ const Detalhes = () => {
                                     </div>
                                 </ListGroup.Item>
                             </ListGroup>
+                           </div>
+                           {
+                               usuario && notasDoUsuario &&
+                               <div  className='listagemMetricasComNotasContainer'>
+                           <h3>Sua Nota</h3>
+                            <ListGroup as="ul" variant="flush">
+                                <ListGroup.Item
+                                    as="li"
+                                    action
+                                    className="d-flex justify-content-between align-items-center"
+                                >
+                                    <div>
+                                        <p className="labelNota">Áudio</p>
+                                    </div>
+                                    <div
+                                        className="notaMetrica"
+                                        style={{ backgroundColor: retornaCorDaNota(notasDoUsuario.audio ?? 0.0)}}
+                                    >
+                                        <span>{notasDoUsuario.audio ?? 0.0}</span>
+                                    </div>
+                                </ListGroup.Item>
+                                <ListGroup.Item
+                                    as="li"
+                                    action
+                                    className="d-flex justify-content-between align-items-center"
+                                >
+                                    <div>
+                                        <p className="labelNota">Feedback</p>
+                                    </div>
+                                    <div
+                                        className="notaMetrica"
+                                        style={{
+                                            backgroundColor: retornaCorDaNota(notasDoUsuario.feedback ?? 0.0),}}
+                                    >
+                                        <span>{notasDoUsuario.feedback ?? 0.0}</span>
+                                    </div>
+                                </ListGroup.Item>
+                                <ListGroup.Item
+                                    as="li"
+                                    action
+                                    className="d-flex justify-content-between align-items-center"
+                                >
+                                    <div>
+                                        <p className="labelNota">Cores</p>
+                                    </div>
+                                    <div
+                                        className="notaMetrica"
+                                        style={{
+                                            backgroundColor: retornaCorDaNota(notasDoUsuario.cores ?? 0.0),
+                                        }}
+                                    >
+                                        <span>{notasDoUsuario.cores ?? 0.0}</span>
+                                    </div>
+                                </ListGroup.Item>
+                                <ListGroup.Item
+                                    as="li"
+                                    action
+                                    className="d-flex justify-content-between align-items-center"
+                                >
+                                    <div>
+                                        <p className="labelNota">Interface</p>
+                                    </div>
+                                    <div
+                                        className="notaMetrica"
+                                        style={{
+                                            backgroundColor: retornaCorDaNota(
+                                                notasDoUsuario.interface ?? 0.0
+                                            ),
+                                        }}
+                                    >
+                                        <span>{notasDoUsuario.interface ?? 0.0}</span>
+                                    </div>
+                                </ListGroup.Item>
+                            </ListGroup>
+                           </div>
+                           }
                         </section>
 
                         <section className="my-3 secaoNotaMediaEAdicionarNota">
                             <div className="containerInternoSecaoNotaMediaEAdicionarNota">
-                                {infoMediaJogo?.media ? (
-                                    <span
-                                        className="notaMetrica my-2"
-                                        style={{
-                                            backgroundColor: retornaCorDaNota(infoMediaJogo.media),
-                                        }}
-                                    >
-                                        {infoMediaJogo.media}
-                                    </span>
-                                ) : (
-                                    <span
-                                        className="notaMetrica my-2"
-                                        style={{ backgroundColor: retornaCorDaNota(0.0) }}
-                                    >
-                                        {0.0}
-                                    </span>
-                                )}
+                                    <div className="d-flex align-items-center justify-content-around" style={{width: '20rem'}}>
+                                        <div className="d-flex align-items-center justify-center flex-column">
+                                            <span className="notaMetrica my-2" style={{backgroundColor: retornaCorDaNota(infoMediaJogo?.media ?? 0.0)}}>
+                                                {infoMediaJogo?.media ?? 0.0}
+                                            </span>
+                                            <span style={{ fontSize: 12, fontWeight:'bold'  }}>Média da Comunidade</span>
+                                           
+                                        </div>
 
-                                <span style={{ fontSize: 12 }}>Nota da Comunidade</span>
-                                {infoMediaJogo?.media ? (
-                                    <span
-                                        style={{ fontSize: 12 }}
-                                    >{`Baseada em ${infoMediaJogo.quantidaAvaliacoes} avaliações`}</span>
-                                ) : (
-                                    <span style={{ fontSize: 12 }}>
-                                        Esse jogo não possui avaliações
-                                    </span>
-                                )}
+                                        {notasDoUsuario?.media &&
+                                            <div className="d-flex align-items-center justify-center flex-column">
+                                            <span
+                                                className="notaMetrica my-2"
+                                                style={{
+                                                    backgroundColor: retornaCorDaNota(Number(notasDoUsuario?.media) ?? 0.0),
+                                                }}
+                                            >
+                                                {notasDoUsuario?.media ?? 0.0}
+                                            </span>
+                                            <span style={{ fontSize: 12, fontWeight:'bold' }}>Sua média</span>
+                                        </div>
+
+                                        }
+
+                                    </div>
+
+                               
                             </div>
 
                             <div className="containerInternoSecaoNotaMediaEAdicionarNota">
@@ -347,11 +455,11 @@ const Detalhes = () => {
                                         className="notaMetrica"
                                         style={{
                                             backgroundColor: retornaCorDaNota(
-                                               calcularMedia(item.audio, item.cores, item.feedback, item.interface) ?? 0.0
+                                               calcularMedia(Number(item.audio), Number(item.cores), Number(item.feedback), Number(item.interface)) ?? 0.0
                                             ),
                                         }}
                                     >
-                                        <span>{calcularMedia(item.audio, item.cores, item.feedback, item.interface) ?? 0.0}</span>
+                                        <span>{calcularMedia(Number(item.audio), Number(item.cores), Number(item.feedback), Number(item.interface)).toFixed(1) ?? 0.0}</span>
                                     </div>
                                             </td>
                                         </tr>
