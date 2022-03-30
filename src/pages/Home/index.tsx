@@ -56,8 +56,8 @@ const Home = () => {
                 <div className="apresentacao">
                 <div className="containerApresentacao">
                     <div className="apresentacaoTexto">
-                        <h1>Bem vindo professor,</h1>
-                        <p>agora você tem uma espaço para avaliar jogos digitais
+                        <h1 style={{fontSize:'4rem'}}>Bem vindo professor,</h1>
+                        <p style={{fontSize:'1.5rem'}}>agora você tem uma espaço para avaliar jogos digitais
                         educacionais e recomendá-los para outros professores.</p>
                         </div>
                         <Image src={professor} width={400} height={400}/>
