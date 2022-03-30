@@ -356,8 +356,8 @@ const Detalhes = () => {
                                             <span className="notaMetrica my-2" style={{backgroundColor: retornaCorDaNota(infoMediaJogo?.media ?? 0.0)}}>
                                                 {infoMediaJogo?.media ?? 0.0}
                                             </span>
-                                            <span style={{ fontSize: 12, fontWeight:'bold'  }}>Média da Comunidade</span>
-                                           
+                                            <span style={{ fontSize: 14, fontWeight:'bold'  }}>Média da Comunidade</span>
+                                            <span style={{ fontSize: 10  }}>{`Nota baseada em ${infoMediaJogo?.quantidaAvaliacoes ?? 0} avaliações`}</span>
                                         </div>
 
                                         {notasDoUsuario?.media &&
@@ -370,7 +370,8 @@ const Detalhes = () => {
                                             >
                                                 {notasDoUsuario?.media ?? 0.0}
                                             </span>
-                                            <span style={{ fontSize: 12, fontWeight:'bold' }}>Sua média</span>
+                                            <span style={{ fontSize: 14, fontWeight:'bold' }}>Sua média</span>
+                                            <p></p>
                                         </div>
 
                                         }
@@ -380,13 +381,26 @@ const Detalhes = () => {
                                
                             </div>
 
-                            <div className="containerInternoSecaoNotaMediaEAdicionarNota">
-                                <RiAddCircleLine className="my-2" size={"2.5em"} />
-                                <Link to={`/avaliar/${jogo.id}`}>
-                                    <Button variant="info" style={{ color: "white" }}>
-                                        Adicionar Nota
-                                    </Button>
-                                </Link>
+                            <div>
+                                {
+                                    !notasDoUsuario?
+                                    <div className="containerInternoSecaoNotaMediaEAdicionarNota">
+                                        <RiAddCircleLine className="my-2" size={"2.5em"} />
+                                        <Link to={`/avaliar/${jogo.id}`}>
+                                            <Button variant="success" style={{ color: "white" }}>
+                                                Adicionar Nota
+                                            </Button>
+                                        </Link>
+                                    </div>:
+                                    <div >
+                                       <Button variant="info" className="me-2">
+                                            Editar Nota
+                                        </Button>
+                                        <Button variant="danger">
+                                            Excluir Nota
+                                        </Button>
+                                    </div>
+                                }
                             </div>
                         </section>
                        
