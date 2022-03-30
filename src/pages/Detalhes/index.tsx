@@ -18,6 +18,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Loading from "../../components/Loading";
 import MsgErro from "../../components/MsgErro";
+import Modal from "react-bootstrap/Modal";
 //utilitarios
 import { retornaCorDaNota } from "../../util";
 
@@ -73,6 +74,7 @@ type NotasDoUsuario = {
 const Detalhes = () => {
     const [loading, setLoading] = useState(false);
     const [msgErr, setMsgErro] = useState(false);
+    const [modalExcluir, setModalExcluir] = useState(false);
     const [msgErrText, setMsgErroText] = useState("");
     const [jogo, setJogo] = useState<DetalhesJogo>({} as DetalhesJogo);
     const [infoMediaJogo, setInfoMediaJogo] = useState<MediaGeralJogo>();
@@ -87,7 +89,7 @@ const Detalhes = () => {
        if(usuario){
         pegarNotasDoUsuarioSobreOJogo();
        }
-    }, [id]);
+    }, [id, usuario]);
 
     function calcularMedia(...valores:number[]){
 
@@ -156,7 +158,7 @@ const Detalhes = () => {
                         />
                         <div className="ms-2">
                             <h3>{jogo.nome}</h3>
-                            <Accordion flush style={{ borderWidth: 1 }}>
+                            <Accordion style={{ borderWidth: 1 }}>
                                 <Accordion.Item eventKey="0">
                                     <Accordion.Header>Sinopse</Accordion.Header>
                                     <Accordion.Body>{jogo.sinopse}</Accordion.Body>
@@ -380,7 +382,7 @@ const Detalhes = () => {
 
                                
                             </div>
-
+                            {/* ADICIONAR/EDITAR/EXCLUIR NOTA*/}
                             <div>
                                 {
                                     !notasDoUsuario?
@@ -396,7 +398,7 @@ const Detalhes = () => {
                                        <Button variant="info" className="me-2">
                                             Editar Nota
                                         </Button>
-                                        <Button variant="danger">
+                                        <Button variant="danger" onClick={()=>setModalExcluir(true)}>
                                             Excluir Nota
                                         </Button>
                                     </div>
@@ -490,6 +492,25 @@ const Detalhes = () => {
             ) : (
                 <Loading />
             )}
+
+            <Modal 
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            show={modalExcluir}
+            >
+                <Modal.Header>
+                    <Modal.Title id="contained-modal-title-vcenter">Excluir sua avaliação?</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <p>Deseja realmente excluir sua avaliação? Essa ação não poderá ser desfeita.</p>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={()=>setModalExcluir(false)}>Cancelar</Button>
+                    <Button variant="success">Confirmar</Button>
+                </Modal.Footer>
+            </Modal>
 
             <MsgErro
                 mensagem={msgErrText}
