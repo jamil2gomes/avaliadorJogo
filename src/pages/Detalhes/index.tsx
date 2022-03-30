@@ -17,7 +17,8 @@ import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Loading from "../../components/Loading";
-import MsgErro from "../../components/MsgErro";
+import MsgErro from "../../components/Modal/MsgErro";
+import Modal from 'react-bootstrap/Modal';
 //utilitarios
 import { retornaCorDaNota } from "../../util";
 

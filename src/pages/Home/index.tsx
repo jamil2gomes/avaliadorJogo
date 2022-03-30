@@ -11,7 +11,7 @@ import ItemJogo from "../../components/ItemJogo";
 import Image    from 'react-bootstrap/Image';
 import { JogoResumo } from "../../interfaces";
 import CardGroup  from "react-bootstrap/CardGroup";
-import MsgErro from "../../components/MsgErro";
+import MsgErro from "../../components/Modal/MsgErro";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 

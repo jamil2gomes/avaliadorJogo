@@ -18,7 +18,7 @@ import { AuthContext } from "../../Auth/AuthContext";
 import { pegarPlataformasDadoJogo, realizaAvaliacao, salvarComentario } from "../../services/avaliacao";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { OptionProp } from "../../interfaces";
-import MsgErro from "../../components/MsgErro";
+import MsgErro from "../../components/Modal/MsgErro";
 import Loading from "../../components/Loading";
 
 type ConteudoModal = {titulo:string, conteudo:string, link:Links}

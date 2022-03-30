@@ -7,7 +7,7 @@ import "./incluirJogo.css";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import { pegarGeneros, pegarPlataformas } from "../../services/incluirJogo";
-import MsgErro from "../../components/MsgErro";
+import MsgErro from "../../components/Modal/MsgErro";
 import Loading from "../../components/Loading";
 import { GeneroPlataformaRequest, OptionProp } from "../../interfaces";
 

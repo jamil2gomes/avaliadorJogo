@@ -28,7 +28,7 @@ const MsgErro:React.FC<ModalMsgErroProps> = ({mensagem, onHide, ...rest}) =>{
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onHide}>Close</Button>
+          <Button onClick={onHide}>Fechar</Button>
         </Modal.Footer>
       </Modal>
     )
