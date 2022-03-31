@@ -1,0 +1,36 @@
+.containerComentario{
+	  border-width:5px;
+    max-width: 40%;
+    border-bottom-left-radius:10px;
+    border-top-right-radius:10px;
+    box-shadow: 5px 10px 10px 5px #888888;
+    position:relative;
+    padding:10px;
+    margin-bottom:50px;
+    margin-top:20px;
+}
+
+.containerComentario::before{
+	content:url(../../assets/aspass.png);
+  position:absolute;
+  font-size:5rem; 
+  top:-40px;
+  left:-20px;
+}
+
+.containerComentario span {
+	font-size:.8rem;
+}
+
+.containerComentario p {
+	font-size:1.1rem;
+  text-align:left;
+  line-height:1.5rem;
+  text-indent: 5px;
+}
+
+.containerComentario h5 {
+	font-size:1.3rem;
+  text-align:left;
+  margin-top: 2.5rem;
+}

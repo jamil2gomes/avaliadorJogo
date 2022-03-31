@@ -116,8 +116,16 @@
     border-radius: 8px;
     width: 100%;
     padding: 10px;
-
 }
+
+.containerComentarios{
+    display: flex;
+    width:90%;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
 
 @media(min-width:768px) {
     .asides{

@@ -48,6 +48,7 @@ import {
 } from "../../services/telaDetalhesJogo";
 import { pegarPlataformasDadoJogo, realizaAvaliacao, salvarComentario } from "../../services/avaliacao";
 import useSliderAvaliacao from "../../hooks/useSlider";
+import Comentario from "../../components/Comentario";
 
 
 const data = {
@@ -688,12 +689,26 @@ const Detalhes = () => {
                                     </aside>
                                 }
                             </div>
+
+                            
                         </main>
                     </>
                 ) : (
                     <Loading />
                 )}
-
+                 
+                <div className="containerComentarios">
+                <Comentario 
+                 autor="Jamil" 
+                 data={"20/03/2022"}
+                 mensagem="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
+            <Comentario 
+                 autor="Jamil" 
+                 data={"20/03/2022"}
+                 mensagem="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
+                </div>
+               
+                 {/* MODAL DE SALVAR E ATUALIZAR AVALIAÇÃO */}
                 <Modal show={modalAvaliar.show} fullscreen onHide={() => setModalAvaliar({ tipo: '', show: false })}>
                     <Modal.Header closeButton>
                         <Modal.Title>{modalAvaliar.tipo === 'salvar' ? 'Registrar avaliação' : 'Editar avaliação'}</Modal.Title>
