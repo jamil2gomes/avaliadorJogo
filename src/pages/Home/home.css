@@ -1,21 +1,14 @@
 
-.sessaoJogo{
-    padding:0;
-    margin:0;
+.containerJogos{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .containerHome{
     background-color: white;
-}
-
-.lista-group{
-    display: flex;
-    list-style: none;
-    padding:0;
-    flex-direction: column;
-    flex-wrap: wrap; 
-    align-items: center;
-    justify-content: center;
 }
 
 .apresentacao{
@@ -25,8 +18,11 @@
 
 @media(min-width:768px) {
 
-    .lista-group{
+    .containerJogos{
         flex-direction: row; 
+        flex-wrap: wrap; 
+        align-items: center;
+        justify-content: flex-start;
     }
 
     .container{

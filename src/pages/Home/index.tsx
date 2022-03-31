@@ -10,10 +10,10 @@ import Loading from "../../components/Loading";
 import ItemJogo from "../../components/ItemJogo";
 import Image    from 'react-bootstrap/Image';
 import { JogoResumo } from "../../interfaces";
-import CardGroup  from "react-bootstrap/CardGroup";
-import MsgErro from "../../components/MsgErro";
+import MsgErro from "../../components/Modal/MsgErro";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
+
 
 
 const Home = () => {
@@ -66,17 +66,15 @@ const Home = () => {
                 </div>
                 {
                     !loading ?
-                        <section className="my-4 secaoJogos">
-                        <CardGroup className="lista-group">
+                        <section className="my-4 d-flex containerJogos">
+                            
                             {
                                 jogoFiltrado.map((item) => (
-                        
                                     <ItemJogo key={item.id} data={item}/>
                                 ))
                             }
-
-                        </CardGroup>
-                    </section> : <Loading/>
+                       </section> 
+                    : <Loading/>
                 }
 
                 <MsgErro

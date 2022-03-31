@@ -5,7 +5,7 @@ import App from "../App";
 import Home from "../pages/Home";
 import Detalhes from "../pages/Detalhes";
 import IncluirJogo from "../pages/IncluirJogo";
-import Avaliacao from "../pages/Avaliacao";
+
 import Login from "../pages/Login";
 import { AuthProvider } from "../Auth/AuthProvider";
 import RequireAuth from "../Auth/RequireAuth";
@@ -19,10 +19,7 @@ const Rotas = () => {
                    <Route path="/" element={<App />}/>
                     <Route index element={<Home />} />
                     <Route path="detalhes/:id" element={<Detalhes />} />
-                    <Route path="avaliar/:id" element={
-                        <RequireAuth>
-                            <Avaliacao/>
-                        </RequireAuth>} />
+                    
                     <Route path="incluir/jogo" 
                     element={
                         <RequireAuth>

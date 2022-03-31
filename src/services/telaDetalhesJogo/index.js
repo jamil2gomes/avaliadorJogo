@@ -34,3 +34,9 @@ export const deletarAvaliacao = async(idJogo,idAvaliacao,token) => {
     }
     return await api.put(`/jogos/${idJogo}/avaliacao/${idAvaliacao}`,body, config);
   }
+
+  export const pegarComentarioDoUsuarioDaqueleJogo = async(idJogo, idUsuario) => {
+
+    return await api.get(`/jogos/${idJogo}/comentarios/usuarios/${idUsuario}`);
+
+  }

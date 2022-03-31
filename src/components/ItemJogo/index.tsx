@@ -26,13 +26,10 @@ const ItemJogo= ({data}:{data:JogoResumo}) => {
         }
         `}
       </style>
-         <Card className="itemJogo border border-light">
-          <Card.Img variant="top" alt={`Imagem do jogo ${data.nome}`} src={data.imagem_url ?? controle} width={180} height={180} />
+         <Card border="light" className="itemJogo">
+          <Card.Img  alt={`Imagem do jogo ${data.nome}`} src={data.imagem_url ?? controle} width={180} height={180} />
           <Card.Body>
-            <Card.Title as="h5">{data.nome}</Card.Title>
-            <Card.Text>
-              {new Date(data.data_lancamento).getFullYear()}
-            </Card.Text>
+            <Card.Title> {data.nome.length > 19 ? `${data.nome.substring(0,19)}...`: data.nome} </Card.Title>
           </Card.Body>
           <Card.Footer style={{backgroundColor:'transparent'}} className="d-flex flex-row-reverse">
           <Button 

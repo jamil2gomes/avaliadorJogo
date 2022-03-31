@@ -5,6 +5,11 @@
     text-align: left;
 }
 
+.avaliacaoSection{
+    display: flex;
+    align-items: center;
+}
+
 .containerDetalhe{
     display: flex;
     margin-top: 6rem;
@@ -45,11 +50,37 @@
     flex-direction: column; 
 }
 
+.cabecalho{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .fichaTecnica{
     width: 100%;
     padding:10px;
     box-shadow: 5px 5px 5px 5px rgba(56, 3, 66, 0.322);
 }
+
+.containerAvaliacao{
+    display: flex;
+    margin-top: 6rem;
+    flex-direction: column;
+    background-color: white;
+}
+
+
+.containerModalAvaliacao{
+    width: 98%;
+}
+
+.cabecalhoModalAvaliacao{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 .asides{
     display: flex;
@@ -72,6 +103,21 @@
 .fichaTecnica h3 {
     font-weight: 500;
 }
+.containerCabecalho{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.containerInstrucaoAvaliacao{
+    text-align: center;
+    background-color: #Cececece;
+    border-radius: 8px;
+    width: 100%;
+    padding: 10px;
+
+}
 
 @media(min-width:768px) {
     .asides{
@@ -91,6 +137,11 @@
         font-size: 1.5rem;
     }
 
+    .containerModalAvaliacao{
+        max-width: 500px;
+        min-width: 500px;
+   }
+
     .tabela{
         width: 40%;
     }
@@ -101,6 +152,10 @@
         
     }
 
+    .cabecalho, .containerInstrucaoAvaliacao, .containerCabecalho, .avaliacao{  
+        font-size: 16px;
+    }
+
     .listagemMetricasComNotasContainer{
         width: 40%;
     }
@@ -108,4 +163,17 @@
         font-size: 1.7rem;
     }
 }
+
+@media(min-width:1024px) {
+
+    .containerModalAvaliacao{
+         min-width: 800px;
+         max-width: 800px;
+    }
+ 
+    .cabecalho, .containerInstrucaoAvaliacao, .containerCabecalho, .avaliacao{
+         font-size: 20px;
+     }
+ }
+ 
   

@@ -8,14 +8,10 @@ import criancas from '../../assets/criancas.png';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Auth/AuthContext';
-import MsgErro from '../../components/MsgErro';
+import MsgErro from '../../components/Modal/MsgErro';
 import Loading from '../../components/Loading';
 
-type LocationProps = {
-    state: {
-      from: Location;
-    };
-  };
+
 const Login = ({location}:{location?:string}) => {
 
     const [validatedLogin, setValidatedLogin] = useState(false);

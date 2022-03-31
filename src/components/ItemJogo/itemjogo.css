@@ -1,8 +1,7 @@
 
     .itemJogo{
-        width: 16rem; 
-        height: 25rem;
-        margin-right: 10px;
+        width:16rem;
+        margin-bottom: 14px;
         border-radius: 10px;
         color:indigo;
         border: 1px solid indigo;
@@ -19,10 +18,8 @@
 
 
 @media(min-width:768px) {
-
     .itemJogo{
-        width: 12rem;    
+        margin-right: 15px;
     }
-    
 
 }
