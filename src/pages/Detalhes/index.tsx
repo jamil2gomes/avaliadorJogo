@@ -10,7 +10,7 @@ import {
     ResponsiveContainer,
 } from "recharts";
 import Container from "react-bootstrap/Container";
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap/Table';
 import Image from "react-bootstrap/Image";
 import Accordion from "react-bootstrap/Accordion";
 import Badge from "react-bootstrap/Badge";
@@ -18,7 +18,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Loading from "../../components/Loading";
 import MsgErro from "../../components/Modal/MsgErro";
-import Modal from 'react-bootstrap/Modal';
+import MsgQuestion from '../../components/Modal/MsgQuestion';
+
 //utilitarios
 import { retornaCorDaNota } from "../../util";
 
@@ -32,6 +33,7 @@ import {RiAddCircleLine,} from "react-icons/ri";
 import logo from "../../assets/jogogenerico.png";
 import { DetalhesJogo, MediaGeralJogo, MediasPorPlataforma } from "../../interfaces";
 import {
+    deletarAvaliacao,
     pegarAvaliacaoDoJogoDoUsuario,
     pegarDetalhesDoJogoPelo,
     pegarMediaDeAvaliacaoDoJogo,
@@ -73,6 +75,7 @@ type NotasDoUsuario = {
 
 const Detalhes = () => {
     const [loading, setLoading] = useState(false);
+    const [msgInfoDeletar, setMsgInfoDeletar] = useState(false);
     const [msgErr, setMsgErro] = useState(false);
     const [msgErrText, setMsgErroText] = useState("");
     const [jogo, setJogo] = useState<DetalhesJogo>({} as DetalhesJogo);
@@ -95,6 +98,20 @@ const Detalhes = () => {
         const notas = valores.reduce((atual, total)=>total+atual,0);
         const media = notas/valores.length;
         return media;
+    }
+
+    const deletaAvaliacao = async () =>{
+        setLoading(true);
+        try {
+            await deletarAvaliacao(id, notasDoUsuario!.id, usuario!.token);
+            setNotasDoUsuario(null);
+
+        } catch (error:any){
+            setMsgErroText(`Ocorreu um erro ao deletar avaliação. Erro: ${error.message}`);
+            setMsgErro(true);
+        }finally {
+            setLoading(false);
+        }
     }
 
     const pegarNotasDoUsuarioSobreOJogo = async() => {
@@ -132,10 +149,7 @@ const Detalhes = () => {
             }
             setNotasDaPlataforma(dadosProGrafico);
         } catch (error: any) {
-            setMsgErroText(
-                `Ocorreu um erro ao carregar informações do jogo. Erro: ${error.status - error.message
-                }`
-            );
+            setMsgErroText(`Ocorreu um erro ao carregar informações do jogo. Erro: ${error.message}`);
             setMsgErro(true);
         } finally {
             setLoading(false);
@@ -190,7 +204,7 @@ const Detalhes = () => {
                         }
 
             
-                        {/* NOTAS MEDIAS GERAL DO JOGO */}
+                        {/* NOTAS GERAL DO JOGO */}
                         <section className="listagemMetricasComNotas my-3">
                            <div className='listagemMetricasComNotasContainer'>
                            <h3>Notas do Jogo</h3>
@@ -273,6 +287,8 @@ const Detalhes = () => {
                                 </ListGroup.Item>
                             </ListGroup>
                            </div>
+
+                           {/* NOTAS DO USUARIO */}
                            {
                                usuario && notasDoUsuario &&
                                <div  className='listagemMetricasComNotasContainer'>
@@ -350,6 +366,7 @@ const Detalhes = () => {
                            }
                         </section>
 
+                           {/* INFORMACAO DA MEDIA DO JOGO E DA MEDIA DA NOTA DO USUARIO*/}
                         <section className="my-3 secaoNotaMediaEAdicionarNota">
                             <div className="containerInternoSecaoNotaMediaEAdicionarNota">
                                     <div className="d-flex align-items-center justify-content-around" style={{width: '20rem'}}>
@@ -381,7 +398,7 @@ const Detalhes = () => {
 
                                
                             </div>
-
+                            {/* CRUD DE AVALIAÇÃO */}
                             <div>
                                 {
                                     !notasDoUsuario?
@@ -397,7 +414,7 @@ const Detalhes = () => {
                                        <Button variant="info" className="me-2">
                                             Editar Nota
                                         </Button>
-                                        <Button variant="danger">
+                                        <Button variant="danger" onClick={()=>setMsgInfoDeletar(true)}>
                                             Excluir Nota
                                         </Button>
                                     </div>
@@ -496,6 +513,14 @@ const Detalhes = () => {
                 mensagem={msgErrText}
                 show={msgErr}
                 onHide={() => setMsgErro(false)}
+            />
+
+            <MsgQuestion
+                show={msgInfoDeletar}
+                titulo={"Excluir avaliação?"} 
+                mensagem={"Você está prestes a excluir sua avaliação desse jogo. Esse processo não pode ser desfeito. Deseja continuar?"} 
+                confirmar={()=>deletaAvaliacao()} 
+                onHide={()=>setMsgInfoDeletar(false)}
             />
             <Footer/>
         </Container>

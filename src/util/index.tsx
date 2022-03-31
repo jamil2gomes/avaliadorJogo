@@ -6,7 +6,6 @@ function retornaCorDaNota(nota:number):string{
     
     return "#FF0000";
 }
-
 export {
     retornaCorDaNota,
 }

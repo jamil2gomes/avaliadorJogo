@@ -1,35 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../Auth/AuthContext";
+
+//COMPONENTES
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Select from "react-select";
 import SliderEstilizado from "./SlideEstilizado";
 import Dialog,{Links} from '../../components/Popover';
+import MsgErro from "../../components/Modal/MsgErro";
+import MsgSuccess from '../../components/Modal/MsgSuccess';
+import Loading from "../../components/Loading";
+import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
+
+//IMAGENS, ICONES, ESTILIZAÇÃO
 import jogoImg from '../../assets/jogogenerico.png';
 import { RiInformationLine } from 'react-icons/ri';
 import "./avaliacao.css";
-//utilitarios
+
+//UTILITARIOS, SERVIÇOS, INTERFACES
 import { retornaCorDaNota } from "../../util";
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
-import { useContext } from "react";
-import { AuthContext } from "../../Auth/AuthContext";
 import { pegarPlataformasDadoJogo, realizaAvaliacao, salvarComentario } from "../../services/avaliacao";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { OptionProp } from "../../interfaces";
-import MsgErro from "../../components/Modal/MsgErro";
-import Loading from "../../components/Loading";
+import useSliderAvaliacao from "../../hooks/useSlider";
+
 
 type ConteudoModal = {titulo:string, conteudo:string, link:Links}
 
 const Avaliacao: React.FC = () => {
 
-    const [valorAudio, setValorAudio] = useState(5);
-    const [valorFeedback, setValorFeedback] = useState(5);
+    const [msgSuccess, setMsgSuccess] = useState(false);
     const [infoJogo, setInfoJogo] = useState({imagem:'', nome:''});
-    const [valorCores, setvalorCores] = useState(5);
-    const [valorInterface, setValorInterface] = useState(5);
     const [modalShow, setModalShow] = useState(false);
     const [loading, setLoading] = useState(false);
     const [msgErr, setMsgErro] = useState(false);
@@ -38,6 +41,20 @@ const Avaliacao: React.FC = () => {
     const [plataforma, setPlataforma] = useState(0);
     const [plataformas, setPlataformas] = useState<OptionProp[]>([]);
     const [conteudoModal, setConteudoModal] = useState<ConteudoModal>({} as ConteudoModal);
+    const {
+        valorAudio,
+        valorFeedback,
+        valorCores,
+        valorInterface,
+        trocarCorAudio,
+        trocarCorInterface,
+        trocarCorFeedback,
+        trocarCorCores,
+        onChangeAudio,
+        onChangeInterface,
+        onChangeFeedback,
+        onChangeCores
+        } = useSliderAvaliacao();
     const {usuario} = useContext(AuthContext);
     let navigate = useNavigate();
     const {id} = useParams();
@@ -47,38 +64,6 @@ const Avaliacao: React.FC = () => {
 
     function valuetext(value: number) {
         return `${value}`;
-    }
-
-    function trocarCorAudio() {
-        return retornaCorDaNota(valorAudio);
-    }
-
-    function trocarCorInterface() {
-        return retornaCorDaNota(valorInterface);
-    }
-
-    function trocarCorFeedback() {
-        return retornaCorDaNota(valorFeedback);
-    }
-
-    function trocarCorCores() {
-        return retornaCorDaNota(valorCores);
-    }
-
-    function onChangeAudio(event: Event, value: number | number[]) {
-        setValorAudio(value as number);
-    }
-
-    function onChangeInterface(event: Event, value: number | number[]) {
-        setValorInterface(value as number);
-    }
-
-    function onChangeFeedback(event: Event, value: number | number[]) {
-        setValorFeedback(value as number);
-    }
-
-    function onChangeCores(event: Event, value: number | number[]) {
-        setvalorCores(value as number);
     }
 
     useEffect(() => {     
@@ -129,7 +114,7 @@ const Avaliacao: React.FC = () => {
            
             const response = await realizaAvaliacao(id, body, usuario!.token);
 
-            if(response.status === 201 && comentario.length > 0){
+            if(response.status === 201 && comentario.trim().length > 0){
 
                 let bodyComentario = {
                     descricao: comentario,
@@ -139,7 +124,7 @@ const Avaliacao: React.FC = () => {
 
                 await salvarComentario(id,bodyComentario, usuario!.token );
             }
-            navigate(`/detalhes/${id}`);
+            setMsgSuccess(true);
         } catch (error:any) {
             setMsgErroText(`Erro: ${error.message}`);
             setMsgErro(true);
@@ -170,6 +155,7 @@ const Avaliacao: React.FC = () => {
             </div>
             <span className="containerInstrucaoAvaliacao my-3">Deslize os botões abaixo para avaliar o jogo</span>
             </section>
+            {/* AVALIAÇÃO */}
             {
                 !loading ?
                 <section className="avaliacao">
@@ -371,6 +357,7 @@ const Avaliacao: React.FC = () => {
             </main>
         </Container>
         <Footer/>
+
         <Dialog 
         id={conteudoModal.link} 
         titulo={conteudoModal.titulo}
@@ -378,11 +365,19 @@ const Avaliacao: React.FC = () => {
         show={modalShow} 
         onHide={handleClose}
         />
+        <MsgSuccess
+        show={msgSuccess}
+        mensagem="Avaliação registrada com sucesso!"
+        onHide={()=>{
+            setMsgSuccess(false);
+            navigate(`/detalhes/${id}`);
+        }}
+        />
          <MsgErro
-            mensagem={msgErrText}
-            show={msgErr}
-            onHide={() => setMsgErro(false)}
-            />
+         mensagem={msgErrText}
+         show={msgErr}
+         onHide={() => setMsgErro(false)}
+        />
 
     </>
     );
