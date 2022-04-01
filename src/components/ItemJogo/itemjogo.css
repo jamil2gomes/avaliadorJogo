@@ -1,13 +1,13 @@
 
-    .itemJogo{
-        width:15rem;
-        margin-bottom: 14px;
-        border-radius: 10px;
-        color:indigo;
-        border: 1px solid indigo;
-        box-shadow: 20px 20px 50px #CCD1E4;
-        padding: 5px;
-    }
+.itemJogo{
+    width:15rem;
+    margin-bottom: 14px;
+    border-radius: 10px;
+    color:indigo;
+    border: 1px solid indigo;
+    box-shadow: 20px 20px 50px #CCD1E4;
+    padding: 5px;
+}
 
 .itemJogo:hover{
     transform: scale(1.04);
@@ -15,7 +15,6 @@
     box-shadow: 5px 5px 5px 5px rgba(56, 3, 66, 0.322);
 
 }
-
 
 @media(min-width:768px) {
     .itemJogo{

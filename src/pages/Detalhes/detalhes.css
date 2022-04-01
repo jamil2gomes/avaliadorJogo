@@ -41,9 +41,18 @@
 }
 .listagemMetricasComNotasContainer{
     width: 100%;
+    padding:10px;
 }
 
 .containerInternoSecaoNotaMediaEAdicionarNota{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
+    box-shadow: 5px 5px 5px 5px rgba(56, 3, 66, 0.322);
+}
+
+.containerAsidesEComentarios{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,6 +96,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width:100%;
 }
 
 .fichaTecnica li {
@@ -94,11 +104,13 @@
     align-items: center;
     justify-content: space-between;
     font-size: 1rem;
+    width: 100%;
 }
 .tabela {
     box-shadow: 5px 5px 5px 5px rgba(56, 3, 66, 0.322);
     padding:10px;
     font-size: 1rem;
+    width: 100%;
 }
 .fichaTecnica h3 {
     font-weight: 500;
@@ -128,21 +140,34 @@
 
 
 @media(min-width:768px) {
-    .asides{
-        flex-direction: row;
-        align-items: flex-end;
+
+    .containerComentarios{
+        width:100%;
+       flex-direction: column; 
+       align-items: center;
+       justify-content: center;
+    }
+
+   .containerAsidesEComentarios{  
+       flex-direction: row;
+        align-items: flex-start;
         justify-content: space-between;
+    }
+    .asides{
+        align-items: flex-start;
+        width:50%;
     }
     .fichaTecnica li {
         font-size: 1.5rem;
     }
 
     .fichaTecnica{
-        width: 40%;
+        width: 90%;
     }
 
     .tabela{
         font-size: 1.5rem;
+        width: 90%;
     }
 
     .containerModalAvaliacao{
@@ -150,9 +175,7 @@
         min-width: 500px;
    }
 
-    .tabela{
-        width: 40%;
-    }
+  
 
     .listagemMetricasComNotas{
         flex-direction: row;

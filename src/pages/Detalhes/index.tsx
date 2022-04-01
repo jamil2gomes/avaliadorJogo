@@ -541,74 +541,47 @@ const Detalhes = () => {
                             </section>
                             {/* MEDIA DO JOGO E DA AVALIACAO DO USUARIO */}
                             <section className="my-3 secaoNotaMediaEAdicionarNota">
-                                <div className="containerInternoSecaoNotaMediaEAdicionarNota">
-                                    <div className="d-flex align-items-center justify-content-around" style={{ width: '20rem' }}>
-                                        <div className="d-flex align-items-center justify-center flex-column">
-                                            <span className="notaMetrica my-2" style={{ backgroundColor: retornaCorDaNota(infoMediaJogo?.media ?? 0.0) }}>
-                                                {infoMediaJogo?.media ?? 0.0}
-                                            </span>
-                                            <span style={{ fontSize: 14, fontWeight: 'bold' }}>Média da Comunidade</span>
-                                            <span style={{ fontSize: 10 }}>{`Nota baseada em ${infoMediaJogo?.quantidaAvaliacoes ?? 0} avaliações`}</span>
-                                        </div>
+                                
 
-                                        {notasDoUsuario?.media &&
-                                            <div className="d-flex align-items-center justify-center flex-column">
-                                                <span
-                                                    className="notaMetrica my-2"
-                                                    style={{
-                                                        backgroundColor: retornaCorDaNota(Number(notasDoUsuario?.media) ?? 0.0),
-                                                    }}
-                                                >
-                                                    {notasDoUsuario?.media ?? 0.0}
-                                                </span>
-                                                <span style={{ fontSize: 14, fontWeight: 'bold' }}>Sua média</span>
-                                                <p></p>
-                                            </div>
-
-                                        }
-
-                                    </div>
-
-
-                                </div>
                                 {/* ADICIONAR/EDITAR/EXCLUIR NOTA*/}
-                                <div>
+                                {
+                                    usuario &&
+                                    <div style={{ padding:10,boxShadow: '5px 5px 5px 5px rgba(56, 3, 66, 0.322)'}}>
                                     {
                                         !notasDoUsuario ?
-                                            <div className="containerInternoSecaoNotaMediaEAdicionarNota">
+                                                  
+                                             <>
+                                             
+                                                 <Button variant="success" style={{fontSize:'1.5rem'}} onClick={() => {
+                                                     setModalAvaliar({ tipo: 'salvar', show: true });
+                                                     aoAbrirModalCriarAvaliacao();
+                                                 }}>
+                                                     Adicionar Nota
+                                                 </Button>
+                                             </>
+                                                   
                                                 
 
-                                                {
-                                                    usuario && 
-                                                    <>
-                                                        <RiAddCircleLine className="my-2" size={"2.5em"} />
-                                                        <Button variant="success" onClick={() => {
-                                                            setModalAvaliar({ tipo: 'salvar', show: true });
-                                                            aoAbrirModalCriarAvaliacao();
-                                                        }}>
-                                                            Adicionar Nota
-                                                        </Button>
-                                                    </>
-                                                   
-                                                }
-
-                                            </div> :
+                                             :
                                             <div >
-                                                <Button variant="info" className="me-2" onClick={() => {
+                                                <Button  style={{fontSize:'1.5rem'}} variant="info" className="me-2" onClick={() => {
                                                     setModalAvaliar({ tipo: 'editar', show: true });
                                                     aoAbrirModalEditarAvaliacao();
                                                 }}>
                                                     Editar Nota
                                                 </Button>
-                                                <Button variant="danger" onClick={() => setMsgInfoDeletar(true)}>
+                                                <Button style={{fontSize:'1.5rem'}} variant="danger" onClick={() => setMsgInfoDeletar(true)}>
                                                     Excluir Nota
                                                 </Button>
                                             </div>
                                     }
                                 </div>
+                                }
                             </section>
 
-                            <div className="asides">
+
+                           <div className="containerAsidesEComentarios">
+                           <div className="asides">
                                 {/* FICHA DO JOGO */}
                                 <aside className="fichaTecnica my-4">
                                     <h3>Ficha do Jogo</h3>
@@ -619,7 +592,7 @@ const Detalhes = () => {
                                         </ListGroup.Item>
                                         <ListGroup.Item as="li">
                                             <div>Lançamento</div>
-                                            <span>{jogo.data_lancamento}</span>
+                                            <span>{jogo.data_lancamento ?? '-'}</span>
                                         </ListGroup.Item>
                                         <ListGroup.Item as="li">
                                             <div>Plataformas</div>
@@ -651,6 +624,23 @@ const Detalhes = () => {
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </aside>
+                                <aside className="my-4 fichaTecnica">
+                                <h3>Média</h3>
+                                <ListGroup variant="flush" as="ol">
+                                        <ListGroup.Item as="li">
+                                            <div>Média Geral</div>
+                                            <span className="notaMetrica" style={{ backgroundColor: retornaCorDaNota(infoMediaJogo?.media ?? 0.0) }}>{infoMediaJogo?.media ?? 0.0}</span>
+                                        </ListGroup.Item>
+                                        {notasDoUsuario?.media &&
+                                            <ListGroup.Item as="li" >
+                                                <div>Sua Nota</div>
+                                                <span className="notaMetrica" style={{ backgroundColor: retornaCorDaNota(infoMediaJogo?.media ?? 0.0) }}>{notasDoUsuario?.media ?? 0.0}</span>
+                                            </ListGroup.Item>
+                                        }
+                                        </ListGroup>
+
+                                </aside>
+                              
                                 {/* NOTAS POR PLATAFORMA */}
                                 {
                                     mediaDoJogoPorPlataforma && mediaDoJogoPorPlataforma.length > 0 &&
@@ -690,23 +680,25 @@ const Detalhes = () => {
                                 }
                             </div>
 
-                            
+                                <div className="containerComentarios">
+                                    <Comentario
+                                        autor="Jamil"
+                                        data={"20/03/2022"}
+                                        mensagem="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+                                    <Comentario
+                                        autor="Jamil"
+                                        data={"20/03/2022"}
+                                        mensagem="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+                                </div>
+                               
+                           </div>         
+                               
                         </main>
                     </>
                 ) : (
                     <Loading />
                 )}
                  
-                <div className="containerComentarios">
-                <Comentario 
-                 autor="Jamil" 
-                 data={"20/03/2022"}
-                 mensagem="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
-            <Comentario 
-                 autor="Jamil" 
-                 data={"20/03/2022"}
-                 mensagem="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."/>
-                </div>
                
                  {/* MODAL DE SALVAR E ATUALIZAR AVALIAÇÃO */}
                 <Modal show={modalAvaliar.show} fullscreen onHide={() => setModalAvaliar({ tipo: '', show: false })}>
