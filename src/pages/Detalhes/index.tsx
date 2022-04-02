@@ -581,7 +581,9 @@ const Detalhes = () => {
 
 
                            <div className="containerAsidesEComentarios">
+                           
                            <div className="asides">
+                                
                                 {/* FICHA DO JOGO */}
                                 <aside className="fichaTecnica my-4">
                                     <h3>Ficha do Jogo</h3>
@@ -624,6 +626,8 @@ const Detalhes = () => {
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </aside>
+                                
+                                {/* MEDIA GERAL E MEDIA DO USUARIO */}
                                 <aside className="my-4 fichaTecnica">
                                 <h3>Média</h3>
                                 <ListGroup variant="flush" as="ol">
@@ -655,8 +659,8 @@ const Detalhes = () => {
                                             </thead>
                                             <tbody>
                                                 {
-                                                    mediaDoJogoPorPlataforma.map(item => (
-                                                        <tr>
+                                                    mediaDoJogoPorPlataforma.map((item, index) => (
+                                                        <tr key={index.toString()}>
                                                             <td>{item.Plataforma.descricao}</td>
                                                             <td>
                                                                 <div
@@ -679,16 +683,18 @@ const Detalhes = () => {
                                     </aside>
                                 }
                             </div>
-
+                                {/* COMENTARIOS SOBRE O JOGO */}
                                 <div className="containerComentarios">
-                                    <Comentario
-                                        autor="Jamil"
-                                        data={"20/03/2022"}
-                                        mensagem="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-                                    <Comentario
-                                        autor="Jamil"
-                                        data={"20/03/2022"}
-                                        mensagem="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+                                   {jogo.Comentarios &&
+                                      jogo.Comentarios.map((item)=>(
+                                        <Comentario
+                                        key={item.id}
+                                        autor={item.Usuario.nome}
+                                        data={new Date(item.createdAt).toLocaleDateString()}
+                                        mensagem={item.descricao} />
+                                      )) 
+                                   }
+                                   
                                 </div>
                                
                            </div>         

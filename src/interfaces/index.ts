@@ -33,12 +33,24 @@ export interface DetalhesJogo{
     desenvolvedora:string;
     imagem_url:string;
     Generos:Genero[],
-    Plataformas: Plataforma[]
+    Plataformas: Plataforma[];
+    Comentarios: Comentario[];
 }
+
+
 
 export interface Genero{
     id: number;
     descricao: string;
+}
+
+export interface Comentario{
+    id: number;
+    descricao: string;
+    createdAt:string;
+    Usuario:{
+        nome:string;
+    }
 }
 
 export interface Plataforma{
