@@ -9,6 +9,7 @@ import {
     PolarAngleAxis,
     PolarRadiusAxis,
     ResponsiveContainer,
+    Legend
 } from "recharts";
 import Container from "react-bootstrap/Container";
 import Table from 'react-bootstrap/Table';
@@ -359,7 +360,8 @@ const Detalhes = () => {
                             {/* GRAFICO */}
                             {
                                 infoMediaJogo?.medias && Object.keys(infoMediaJogo.medias).length !== 0 &&
-                                <ResponsiveContainer width="100%" height={200}>
+                                <div className="containerGrafico my-4">
+                                    <ResponsiveContainer width="100%" height={300}>
                                     <RadarChart
                                         cx="50%"
                                         cy="50%"
@@ -370,12 +372,14 @@ const Detalhes = () => {
                                         <PolarAngleAxis dataKey="label" />
                                         <PolarRadiusAxis angle={30} domain={[0, 10]} />
                                         <Radar
-                                            name="Media"
+                                            name="Notas geral do jogo"
                                             dataKey="value"
                                             stroke="#8884d8" fill="#8884d8" fillOpacity={0.6}
                                         />
+                                        <Legend />
                                     </RadarChart>
                                 </ResponsiveContainer>
+                                </div>
                             }
 
 
@@ -623,6 +627,11 @@ const Detalhes = () => {
                                                     {jogo.desenvolvedora}
                                                 </Badge>
                                             </span>
+                                        </ListGroup.Item>
+
+                                        <ListGroup.Item as="li">
+                                            <div>Link do Jogo</div>
+                                            <a href={jogo.jogo_url} rel="external" target="_blank">Aqui</a>
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </aside>

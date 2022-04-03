@@ -47,7 +47,7 @@ const Login = ({location}:{location?:string}) => {
                 navigate(location??'/')
                 window.location.href = window.location.href;
             } catch (error:any) {
-                setMsgErroText(`Ocorreu um erro ao logar. ${error}`);
+                setMsgErroText(`Ocorreu um erro ao logar. E-mail ou senha inválidos`);
                 setMsgErro(true);
                 setEmail('');
                 setSenha('');

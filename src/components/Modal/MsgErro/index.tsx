@@ -17,7 +17,7 @@ const MsgErro:React.FC<ModalMsgErroProps> = ({mensagem, onHide, ...rest}) =>{
         aria-labelledby="modal-erro"
         centered
       >
-        <Modal.Header closeButton>
+        <Modal.Header onHide={onHide} closeButton>
           <Modal.Title id="modal-erro">
            Ocorreu um erro!
           </Modal.Title>

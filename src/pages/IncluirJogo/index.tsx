@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Container from 'react-bootstrap/Container';
 import Select from "react-select";
 import Form from 'react-bootstrap/Form';
@@ -6,10 +6,13 @@ import Button from "react-bootstrap/Button";
 import "./incluirJogo.css";
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
-import { pegarGeneros, pegarPlataformas } from "../../services/incluirJogo";
+import { criarJogo, pegarGeneros, pegarPlataformas } from "../../services/incluirJogo";
 import MsgErro from "../../components/Modal/MsgErro";
 import Loading from "../../components/Loading";
 import { GeneroPlataformaRequest, OptionProp } from "../../interfaces";
+import { AuthContext } from "../../Auth/AuthContext";
+import { useNavigate } from "react-router-dom";
+import MsgSuccess from "../../components/Modal/MsgSuccess";
 
 const IncluirJogo = () => {
 
@@ -19,10 +22,19 @@ const IncluirJogo = () => {
     const [dataPlataformas, setDataPlataformas] = useState<OptionProp[]>([]);
     const [msgErr, setMsgErro] = useState(false);
     const [msgErrText, setMsgErroText] = useState('');
+    const [msgSuccess, setMsgSuccess] = useState(false);
+    const [msgSuccessText, setMsgSuccessText] = useState('');
     const [urlImagem, setUrlImagem] = useState('');
+    const [nomeJogo, setNomeJogo] = useState('');
+    const [sinopse, setSinopse] = useState('');
+    const [desenvolvedora, setDesenvolvedora] = useState('');
+    const [dataLancamento, setDataLancamento] = useState('');
     const [urlJogo, setUrlJogo] = useState('');
     const [validatedCadastro, setValidatedCadastro] = useState(false);
     const [loading, setLoading] = useState(false);
+    let navigate = useNavigate();
+
+    const {usuario} = useContext(AuthContext);
  
 
     useEffect(() => { 
@@ -86,7 +98,7 @@ const IncluirJogo = () => {
     }
 
     const cadastrarJogo = async (event: React.FormEvent<HTMLFormElement>) =>{
-
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -97,6 +109,7 @@ const IncluirJogo = () => {
        if(urlImagem && !isValidURL(urlImagem)){
            setMsgErroText('A url da imagem do jogo está inválida')
            setMsgErro(true);
+           return;
        }
 
        if(plataformas.length === 0){
@@ -117,8 +130,44 @@ const IncluirJogo = () => {
         return;
        }
 
+       let valoresPlataformas:number[] = [];
+       plataformas.forEach(element => {
+           valoresPlataformas.push(element.value)
+       });
 
-       
+       let valoresGeneros:number[] = [];
+       generos.forEach(element => {
+        valoresGeneros.push(element.value)
+       });
+
+
+       const body = {
+        nome: nomeJogo,
+        sinopse:sinopse,
+        data_lancamento: dataLancamento === "" ? null : dataLancamento,
+        desenvolvedora:desenvolvedora,
+        imagem_url: urlImagem,
+        jogo_url: urlJogo,
+        usuario_id: usuario!.id,
+        plataformas:valoresPlataformas,
+        generos:valoresGeneros
+       }
+
+       try {
+           const response = await criarJogo(body,usuario!.token);
+           if(response.status === 201){
+               setMsgSuccess(true);
+               setMsgSuccessText("Jogos cadastrado com sucesso");
+               valoresGeneros=[];
+               valoresPlataformas = [];
+           }
+       } catch (error) {
+        console.log(error)
+        setMsgErroText('Ocorreu um erro ao cadastrar o jogo. Tente novamente mais tarde');
+        setMsgErro(true);
+        valoresGeneros=[];
+        valoresPlataformas = [];
+       }
 }
 
 
@@ -151,17 +200,17 @@ const IncluirJogo = () => {
                     >
                     <Form.Group className="mb-3" controlId="nome">
                         <Form.Label>Nome*</Form.Label>
-                        <Form.Control autoFocus type="text" placeholder="Insira o nome do jogo" size="lg" required />
+                        <Form.Control autoFocus type="text" placeholder="Insira o nome do jogo" size="lg" onChange={(e)=>setNomeJogo(e.target.value)} required />
                         <Form.Control.Feedback type="invalid">O nome do jogo é obrigatório</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="descricao">
                         <Form.Label>Sinopse*</Form.Label>
-                        <Form.Control as="textarea" rows={6} size="lg" style={{ resize: 'none' }} required/>
+                        <Form.Control as="textarea" rows={6} size="lg" style={{ resize: 'none' }} onChange={(e)=>setSinopse(e.target.value)} required/>
                         <Form.Control.Feedback type="invalid">A sinopse do jogo é obrigatória</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="dataLancamento">
                         <Form.Label>Data Lançamento</Form.Label>
-                        <Form.Control type="date" size="lg" placeholder="Insira o nome do jogo"/>
+                        <Form.Control type="date" size="lg" placeholder="Insira o nome do jogo" onChange={(e)=>setDataLancamento(e.target.value)}/>
                     </Form.Group>
                     <div className="mb-3" >
                         <label className="mb-2" htmlFor="plataformas">Plataformas*</label>
@@ -181,7 +230,7 @@ const IncluirJogo = () => {
                                 }
                             }}
                             isMulti
-                            name="colors"
+                            name="plataformas"
                             options={dataPlataformas}
                             className="basic-multi-select"
                             classNamePrefix="select"
@@ -206,7 +255,7 @@ const IncluirJogo = () => {
                                 }
                             }}
                             isMulti
-                            name="colors"
+                            name="generos"
                             options={dataGeneros}
                             className="basic-multi-select"
                             classNamePrefix="select"
@@ -215,7 +264,7 @@ const IncluirJogo = () => {
 
                     <Form.Group className="mb-3" controlId="desenvolvedor">
                         <Form.Label>Desenvolvedora</Form.Label>
-                        <Form.Control type="text" size="lg" placeholder="Insira a desenvolvedora" />
+                        <Form.Control type="text" size="lg" placeholder="Insira a desenvolvedora" onChange={(e)=>setDesenvolvedora(e.target.value)} />
                     </Form.Group>
 
                     <Form.Group controlId="capaJogo" className="mb-3">
@@ -240,6 +289,14 @@ const IncluirJogo = () => {
                 mensagem={msgErrText}
                 show={msgErr}
                 onHide={()=>setMsgErro(false)}
+                />
+                <MsgSuccess
+                mensagem={msgSuccessText}
+                show={msgSuccess}
+                onHide={()=>{
+                    setMsgSuccess(false);
+                    navigate('/');
+                }}
                 />
             </Container>
             <Footer/>

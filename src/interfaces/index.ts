@@ -32,6 +32,7 @@ export interface DetalhesJogo{
     data_lancamento:string;
     desenvolvedora:string;
     imagem_url:string;
+    jogo_url:string;
     Generos:Genero[],
     Plataformas: Plataforma[];
     Comentarios: Comentario[];

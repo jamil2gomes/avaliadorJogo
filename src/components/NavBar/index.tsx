@@ -56,7 +56,7 @@ const NavBar:React.FC<NavBarProp>= ({exibirPesquisa=true, ...rest}) =>{
              />
            </Form>
            }
-            <DropdownButton  variant={usuario?'success':'primary'} id="dropdown-basic-button" title={usuario?`Olá, ${usuario.nickname}`:'Olá, visitante '}>
+            <DropdownButton  variant={usuario?'success':'primary'} id="dropdown-basic-button" title={usuario?`Olá, ${usuario.nome}`:'Olá, visitante '}>
               {
                 !usuario &&
                 <Dropdown.Item onClick={()=>navigate('/login')} >Logar</Dropdown.Item>

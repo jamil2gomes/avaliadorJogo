@@ -65,8 +65,7 @@
     justify-content: center;
 }
 
-
-.fichaTecnica{
+.fichaTecnica, .containerGrafico{
     width: 100%;
     padding:10px;
     box-shadow: 5px 5px 5px 5px rgba(56, 3, 66, 0.322);
@@ -132,7 +131,7 @@
 
 .containerComentarios{
     display: flex;
-    width:90%;
+    width:80%;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
@@ -142,7 +141,7 @@
 @media(min-width:768px) {
 
     .containerComentarios{
-        width:100%;
+        width:80%;
        flex-direction: column; 
        align-items: center;
        justify-content: center;
