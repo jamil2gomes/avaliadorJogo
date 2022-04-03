@@ -40,3 +40,13 @@ export const deletarAvaliacao = async(idJogo,idAvaliacao,token) => {
     return await api.get(`/jogos/${idJogo}/comentarios/usuarios/${idUsuario}`);
 
   }
+
+  export const deletarComentario = async(idJogo, idUsuario, token) => {
+    let config={
+      headers: {
+        'Authorization': `Bearer ${token}` 
+      }
+    }
+    return await api.delete(`/jogos/${idJogo}/comentarios/usuarios/${idUsuario}`, config);
+
+  }

@@ -41,6 +41,7 @@ import "./detalhes.css";
 import { DetalhesJogo, MediaGeralJogo, MediasPorPlataforma, OptionProp } from "../../interfaces";
 import {
     deletarAvaliacao,
+    deletarComentario,
     editarAvaliacao,
     pegarAvaliacaoDoJogoDoUsuario,
     pegarDetalhesDoJogoPelo,
@@ -187,6 +188,7 @@ const Detalhes = () => {
         setLoading(true);
         try {
             await deletarAvaliacao(id, notasDoUsuario!.id, usuario!.token);
+            await deletarComentario(id, usuario!.id, usuario!.token);
             setNotasDoUsuario(null);
             setMsgInfoDeletar(false);
 
@@ -592,10 +594,6 @@ const Detalhes = () => {
                                 <aside className="fichaTecnica my-4">
                                     <h3>Ficha do Jogo</h3>
                                     <ListGroup variant="flush" as="ol">
-                                        <ListGroup.Item as="li">
-                                            <div>Nome</div>
-                                            <span>{jogo.nome}</span>
-                                        </ListGroup.Item>
                                         <ListGroup.Item as="li">
                                             <div>Lançamento</div>
                                             <span>{jogo.data_lancamento ?? '-'}</span>

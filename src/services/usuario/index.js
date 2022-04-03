@@ -8,12 +8,11 @@ export const realizarLogin = async(email, senha) => {
     return await api.post('/usuario/login',body);
 }
 
-export const realizarCadastro = async({nome, email, senha, nickname}) => {
+export const realizarCadastro = async(nome, email, senha) => {
     const body = {
         email:email,
         senha:senha,
         nome:nome,
-        nickname:nickname,
     }
     return await api.post('/usuario',body);
 }

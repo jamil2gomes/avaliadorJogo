@@ -131,7 +131,7 @@
 
 .containerComentarios{
     display: flex;
-    width:80%;
+    width:100%;
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
@@ -141,7 +141,7 @@
 @media(min-width:768px) {
 
     .containerComentarios{
-        width:80%;
+       width:70%;
        flex-direction: column; 
        align-items: center;
        justify-content: center;
@@ -157,16 +157,16 @@
         width:50%;
     }
     .fichaTecnica li {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .fichaTecnica{
-        width: 90%;
+        width: 100%;
     }
 
     .tabela{
         font-size: 1.5rem;
-        width: 90%;
+        width: 100%;
     }
 
     .containerModalAvaliacao{
