@@ -190,6 +190,7 @@ const Detalhes = () => {
             await deletarAvaliacao(id, notasDoUsuario!.id, usuario!.token);
             await deletarComentario(id, usuario!.id, usuario!.token);
             setNotasDoUsuario(null);
+            setComentario("");
             setMsgInfoDeletar(false);
 
             await pegarDetalhesDoJogo();
