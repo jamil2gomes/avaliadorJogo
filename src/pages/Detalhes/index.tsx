@@ -175,6 +175,7 @@ const Detalhes = () => {
                 await salvarComentario(id, bodyComentario, usuario!.token);
             }
             await pegarDetalhesDoJogo();
+            setComentario("");
             setMsgSuccess(true);
         } catch (error: any) {
             setMsgErroText(`Erro: ${error.message}`);
@@ -233,6 +234,7 @@ const Detalhes = () => {
             }
 
             setMsgSuccess(true);
+            setComentario("");
             await pegarDetalhesDoJogo();
         } catch (error: any) {
             setMsgErroText(`Ocorreu um erro ao atualizar avaliação. ${error.message}`);
