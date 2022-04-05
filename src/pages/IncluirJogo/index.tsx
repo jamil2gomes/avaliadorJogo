@@ -295,7 +295,7 @@ const IncluirJogo = () => {
                 show={msgSuccess}
                 onHide={()=>{
                     setMsgSuccess(false);
-                    navigate('/');
+                    navigate('/', {replace:true});
                 }}
                 />
             </Container>

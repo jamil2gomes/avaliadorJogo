@@ -11,7 +11,7 @@ import { AuthContext } from '../../Auth/AuthContext';
 import MsgErro from '../../components/Modal/MsgErro';
 import Loading from '../../components/Loading';
 import { realizarCadastro } from '../../services/usuario';
-
+import GoogleLogin,{GoogleLoginResponse, GoogleLoginResponseOffline} from 'react-google-login';
 
 const Login = ({ location }: { location?: string }) => {
 
@@ -23,12 +23,11 @@ const Login = ({ location }: { location?: string }) => {
     const [emailCadastro, setEmailCadastro] = useState('');
     const [senhaCadastro, setSenhaCadastro] = useState('');
     const [nomeCadastro, setNomeCadastro] = useState('');
-    const [nickCadastro, setNickCadastro] = useState('');
     const [msgErro, setMsgErro] = useState(false);
     const [loading, setLoading] = useState(false);
     const [msgErroText, setMsgErroText] = useState('');
     let navigate = useNavigate();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, signInGoogle } = useContext(AuthContext);
 
 
     const handleCadastroUsuario = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -89,6 +88,28 @@ const Login = ({ location }: { location?: string }) => {
 
     }
 
+    const responseGoogle = async(response:GoogleLoginResponse | GoogleLoginResponseOffline) =>{
+        
+       if('code' in response){
+            throw new Error("Serviço offline!")
+       }
+       
+        const {profileObj:{email, name, googleId}} = response;
+        try {
+            await signInGoogle(name, email, googleId );
+            navigate(location ?? '/');
+            window.location.href = window.location.href;
+        } catch (error) {
+            setMsgErroText(`Ocorreu um erro ao logar. Erro: ${error}`);
+            setMsgErro(true);
+        }
+    }
+
+    const onFailure = (error:any) =>{
+        setMsgErroText(`Ocorreu um erro ao logar.`);
+        setMsgErro(true);
+    }
+
 
     return (
         <div className='d-flex'>
@@ -108,6 +129,16 @@ const Login = ({ location }: { location?: string }) => {
                             style={{ width: '80%' }}
                         >
                             <Tab eventKey="login" title="Login">
+                            
+                                <div className="w-100 mb-4 d-flex align-items-center justify-content-center">
+                                    <GoogleLogin
+                                        clientId="626320080950-ldtkovf8hhlrq31a4jj2d4n8mcejhg8d.apps.googleusercontent.com"
+                                        buttonText="Logar com o google"
+                                        onSuccess={responseGoogle}
+                                        onFailure={onFailure}
+                                    />
+
+                                </div>
                                 <Form
                                     style={{ width: '100%' }}
                                     noValidate

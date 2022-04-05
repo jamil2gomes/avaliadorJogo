@@ -16,3 +16,12 @@ export const realizarCadastro = async(nome, email, senha) => {
     }
     return await api.post('/usuario',body);
 }
+
+export const loginGoogle = async(nome, email, googleId) => {
+    const body = {
+        email:email,
+        googleId:googleId,
+        name:nome,
+    }
+    return await api.post('/usuario/login/google',body);
+}
