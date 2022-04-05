@@ -294,6 +294,7 @@ const Detalhes = () => {
 
     const aoAbrirModalCriarAvaliacao = () => {
         setPlataforma(0);
+        setComentario("");
         preencherSelect();
         setvalorCores(5);
         setValorAudio(5);
