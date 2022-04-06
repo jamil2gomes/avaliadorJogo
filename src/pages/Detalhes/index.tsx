@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { AuthContext } from "../../Auth/AuthContext";
+import useAuth from "../../hooks/useAuth";
 //componentes
 import {
     Radar,
@@ -33,7 +33,7 @@ import SliderEstilizado from "../../components/Slider";
 import { retornaCorDaNota } from "../../util";
 
 //IMAGENS, ESTILOS
-import { RiAddCircleLine, RiInformationLine } from "react-icons/ri";
+import { RiInformationLine } from "react-icons/ri";
 import logo from "../../assets/jogogenerico.png";
 import "./detalhes.css";
 
@@ -51,25 +51,30 @@ import {
 import { pegarPlataformasDadoJogo, realizaAvaliacao, salvarComentario } from "../../services/avaliacao";
 import useSliderAvaliacao from "../../hooks/useSlider";
 import Comentario from "../../components/Comentario";
+import { isTemplateHead } from "typescript";
 
-
+type Notas = { label:string, value:number, valueB?:number}
 const data = {
     default: [
         {
             label: "Audio",
             value: 0,
+            valueB:0,
         },
         {
             label: "Feedback",
-            value: 0,
+            value: 0,  
+            valueB:0,
         },
         {
             label: "Cores",
             value: 0,
+            valueB:0,
         },
         {
             label: "Interface",
             value: 0,
+            valueB:0,
         },
     ],
 };
@@ -92,6 +97,7 @@ const Detalhes = () => {
     const [msgErr, setMsgErro] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [comentario, setComentario] = useState("");
+   
     const [plataforma, setPlataforma] = useState(0);
     const [plataformas, setPlataformas] = useState<OptionProp[]>([]);
     const [msgInfoDeletar, setMsgInfoDeletar] = useState(false);
@@ -101,7 +107,7 @@ const Detalhes = () => {
     const [conteudoModal, setConteudoModal] = useState<ConteudoModal>({} as ConteudoModal);
     const [jogo, setJogo] = useState<DetalhesJogo>({} as DetalhesJogo);
     const [infoMediaJogo, setInfoMediaJogo] = useState<MediaGeralJogo>();
-    const [notasDaPlataforma, setNotasDaPlataforma] = useState(data.default);
+    const [notasDaPlataforma, setNotasDaPlataforma] = useState<Notas[]>(data.default);
     const [notasDoUsuario, setNotasDoUsuario] = useState<NotasDoUsuario | null>(null);
     const {
         valorAudio,
@@ -123,7 +129,7 @@ const Detalhes = () => {
     } = useSliderAvaliacao();
 
     const [mediaDoJogoPorPlataforma, setMediaDoJogoPorPlataforma] = useState<MediasPorPlataforma[]>([]);
-    const { usuario } = useContext(AuthContext);
+    const { usuario } = useAuth();
     const { id } = useParams();
 
     function valuetext(value: number) {
@@ -244,25 +250,6 @@ const Detalhes = () => {
         }
     }
 
-
-    const pegarNotasDoUsuarioSobreOJogo = async () => {
-
-        setLoading(true);
-        try {
-            const response = await pegarAvaliacaoDoJogoDoUsuario(id, usuario!.id);
-            if (!response.data.mensagem) {
-                setNotasDoUsuario(response.data);
-            }
-
-        } catch (error: any) {
-            setMsgErroText(`Ocorreu um erro ao carregar informações da nota do usuário sobre o jogo. Erro: ${error.message}`);
-            setMsgErro(true);
-        } finally {
-            setLoading(false);
-        }
-
-    }
-
     const preencherSelect = useCallback(async () => {
         try {
             const response = await pegarPlataformasDadoJogo(id);
@@ -314,7 +301,7 @@ const Detalhes = () => {
             setJogo(detalhesJogo.data);
             setInfoMediaJogo(mediaJogo.data);
 
-            let dadosProGrafico = [];
+            let dadosProGrafico:Notas[] = [];
             for (let item in mediaJogo.data.medias) {
                 let dadoProGrafico = { label: '', value: 0.0 };
                 dadoProGrafico.label = item;
@@ -324,7 +311,23 @@ const Detalhes = () => {
             setNotasDaPlataforma(dadosProGrafico);
 
             if (usuario) {
-                await pegarNotasDoUsuarioSobreOJogo()
+                const response = await pegarAvaliacaoDoJogoDoUsuario(id, usuario.id);
+                if (!response.data.mensagem) {
+                    setNotasDoUsuario(response.data);
+                }
+    
+                dadosProGrafico.forEach(item=>{
+                    if(item.label === 'Audio')
+                        item.valueB = response.data.audio;
+                    if(item.label === 'Feedback')
+                        item.valueB = response.data.feedback;
+                    if(item.label === 'Cores')
+                        item.valueB = response.data.cores;
+                    if(item.label === 'Interface')
+                        item.valueB = response.data.interface;
+                })
+
+                setNotasDaPlataforma(dadosProGrafico);
             }
 
         } catch (error: any) {
@@ -380,8 +383,15 @@ const Detalhes = () => {
                                         <Radar
                                             name="Notas geral do jogo"
                                             dataKey="value"
-                                            stroke="#8884d8" fill="#8884d8" fillOpacity={0.6}
+                                            stroke="#090547" fill="#2015eb" fillOpacity={0.6}
                                         />
+                                        <Radar
+                                            name="Sua Nota"
+                                            dataKey="valueB"
+                                            stroke="#0e4222" fill="#45e482" fillOpacity={0.5}
+                                        />
+                                        
+
                                         <Legend />
                                     </RadarChart>
                                 </ResponsiveContainer>
@@ -906,7 +916,6 @@ const Detalhes = () => {
                                                 aria-label="Select de plataformas onde jogou"
                                                 className="mb-4"
                                                 onChange={(e) => {
-                                                    console.log(e.target.value)
                                                     setPlataforma(Number(e.target.value))
                                                 }}>
                                                 <option key={0} value={0}>Em qual plataforma você jogou?</option>

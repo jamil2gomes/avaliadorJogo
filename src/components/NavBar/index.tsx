@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -12,7 +12,7 @@ import logo from '../../assets/logo.png';
 
 
 import "./navbar.css";
-import { AuthContext } from "../../Auth/AuthContext";
+import useAuth from "../../hooks/useAuth";
 
 
 interface NavBarProp extends FormControlProps{
@@ -21,7 +21,7 @@ interface NavBarProp extends FormControlProps{
 }
 
 const NavBar:React.FC<NavBarProp>= ({exibirPesquisa=true, ...rest}) =>{
-  const {usuario, signOut} = useContext(AuthContext);
+  const {usuario, signOut} = useAuth();
   let navigate =  useNavigate();
 
   const handleSignOut = () => {

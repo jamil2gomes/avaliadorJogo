@@ -1,17 +1,21 @@
-import { useContext, useState } from 'react';
+import {useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+//Componentes
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Image from 'react-bootstrap/Image';
-import criancas from '../../assets/criancas.png';
-import './login.css';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../Auth/AuthContext';
 import MsgErro from '../../components/Modal/MsgErro';
 import Loading from '../../components/Loading';
-import { realizarCadastro } from '../../services/usuario';
 import GoogleLogin,{GoogleLoginResponse, GoogleLoginResponseOffline} from 'react-google-login';
+
+//Imagens, Serviços, Estilos
+import criancas from '../../assets/criancas.png';
+import './login.css';
+import { realizarCadastro } from '../../services/usuario';
+
 
 const Login = ({ location }: { location?: string }) => {
 
@@ -26,10 +30,9 @@ const Login = ({ location }: { location?: string }) => {
     const [msgErro, setMsgErro] = useState(false);
     const [loading, setLoading] = useState(false);
     const [msgErroText, setMsgErroText] = useState('');
-
+    const { signIn, signInGoogle } = useAuth();
     const [key, setKey] = useState('login');
     let navigate = useNavigate();
-    const { signIn, signInGoogle } = useContext(AuthContext);
 
 
     const handleCadastroUsuario = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,10 +65,6 @@ const Login = ({ location }: { location?: string }) => {
             setLoading(false);
         }
     }
-
-    const responseFacebook = (response:any) => {
-        console.log(response);
-      }
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Container from 'react-bootstrap/Container';
 import Select from "react-select";
 import Form from 'react-bootstrap/Form';
@@ -10,9 +10,9 @@ import { criarJogo, pegarGeneros, pegarPlataformas } from "../../services/inclui
 import MsgErro from "../../components/Modal/MsgErro";
 import Loading from "../../components/Loading";
 import { GeneroPlataformaRequest, OptionProp } from "../../interfaces";
-import { AuthContext } from "../../Auth/AuthContext";
 import { useNavigate } from "react-router-dom";
 import MsgSuccess from "../../components/Modal/MsgSuccess";
+import useAuth from "../../hooks/useAuth";
 
 const IncluirJogo = () => {
 
@@ -34,7 +34,7 @@ const IncluirJogo = () => {
     const [loading, setLoading] = useState(false);
     let navigate = useNavigate();
 
-    const {usuario} = useContext(AuthContext);
+    const {usuario} = useAuth();
  
 
     useEffect(() => { 
