@@ -19,8 +19,8 @@ export const realizarCadastro = async(nome, email, senha) => {
 
 export const loginGoogle = async(nome, email, googleId) => {
     const body = {
-        email:email,
-        googleId:googleId,
+        email,
+        googleId,
         name:nome,
     }
     return await api.post('/usuario/login/google',body);

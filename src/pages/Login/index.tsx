@@ -26,6 +26,8 @@ const Login = ({ location }: { location?: string }) => {
     const [msgErro, setMsgErro] = useState(false);
     const [loading, setLoading] = useState(false);
     const [msgErroText, setMsgErroText] = useState('');
+
+    const [key, setKey] = useState('login');
     let navigate = useNavigate();
     const { signIn, signInGoogle } = useContext(AuthContext);
 
@@ -53,13 +55,17 @@ const Login = ({ location }: { location?: string }) => {
                 navigate('/');
                 window.location.href = window.location.href;
             }
-        } catch (error) {
-            setMsgErroText(`Ocorreu um erro ao cadastrar o usuário`);
+        } catch (error:any) {
+            setMsgErroText(`Ocorreu um erro ao cadastrar o usuário. ${error.response.data.mensagem}`);
             setMsgErro(true);
         } finally {
             setLoading(false);
         }
     }
+
+    const responseFacebook = (response:any) => {
+        console.log(response);
+      }
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -99,8 +105,8 @@ const Login = ({ location }: { location?: string }) => {
             await signInGoogle(name, email, googleId );
             navigate(location ?? '/');
             window.location.href = window.location.href;
-        } catch (error) {
-            setMsgErroText(`Ocorreu um erro ao logar. Erro: ${error}`);
+        } catch (error:any) {
+            setMsgErroText(`Ocorreu um erro ao logar.`);
             setMsgErro(true);
         }
     }
@@ -119,25 +125,28 @@ const Login = ({ location }: { location?: string }) => {
                         <Tabs
                             id="controlled-tab-example"
                             className="mb-3"
+                            activeKey={key}
                             onSelect={(e) => {
+                                ;
                                 if (e === 'cadastro') {
                                     setValidatedCadastro(false);
+                                    setKey('cadastro');
                                 } else {
                                     setValidatedLogin(false);
+                                     setKey('login');
                                 }
                             }}
                             style={{ width: '80%' }}
                         >
                             <Tab eventKey="login" title="Login">
                             
-                                <div className="w-100 mb-4 d-flex align-items-center justify-content-center">
+                                <div className="w-100 mb-4 d-flex align-items-center flex-column  justify-content-center">
                                     <GoogleLogin
                                         clientId="626320080950-ldtkovf8hhlrq31a4jj2d4n8mcejhg8d.apps.googleusercontent.com"
-                                        buttonText="Logar com o google"
+                                        buttonText="LOGAR COM GOOGLE"
                                         onSuccess={responseGoogle}
                                         onFailure={onFailure}
                                     />
-
                                 </div>
                                 <Form
                                     style={{ width: '100%' }}
