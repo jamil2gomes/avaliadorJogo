@@ -80,7 +80,10 @@ const Home = () => {
                 <MsgErro
                 mensagem={msgErrText}
                 show={msgErr}
-                onHide={()=>setMsgErro(false)}
+                onHide={()=>{
+                    setMsgErro(false);
+                    window.location.href = window.location.href;
+                }}
                 />
             </Container>
         <Footer/>
