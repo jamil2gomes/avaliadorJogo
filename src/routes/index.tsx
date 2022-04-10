@@ -22,7 +22,7 @@ const Rotas = () => {
                     <Route index element={<Home />} />
                     <Route path="detalhes/:id" element={<Detalhes />} />
                     
-                    <Route path="incluir/jogo" 
+                    <Route path="/incluir/jogo" 
                     element={
                         <RequireAuth>
                             <IncluirJogo/>
