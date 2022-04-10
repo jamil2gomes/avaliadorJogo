@@ -7,8 +7,10 @@ import Detalhes from "../pages/Detalhes";
 import IncluirJogo from "../pages/IncluirJogo";
 
 import Login from "../pages/Login";
+import TermosDeUso from "../pages/TermosDeUso";
 import { AuthProvider } from "../Auth/AuthProvider";
 import RequireAuth from "../Auth/RequireAuth";
+import PoliticaPrivacidade from "../pages/PoliticaDePrivacidade";
 
 const Rotas = () => {
 
@@ -27,6 +29,8 @@ const Rotas = () => {
                         </RequireAuth>
                     } />  
                     <Route path="login" element={<Login/>} />
+                    <Route path="terms" element={<TermosDeUso/>} />
+                    <Route path="privacy" element={<PoliticaPrivacidade/>} />
                     <Route path="*" element={<Navigate to="/" replace />} />      
             </Routes>    
        </AuthProvider>

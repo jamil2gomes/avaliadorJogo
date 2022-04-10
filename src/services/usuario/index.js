@@ -5,7 +5,7 @@ export const realizarLogin = async(email, senha) => {
         email:email,
         senha:senha
     }
-    return await api.post('/usuario/login',body);
+    return await api.post('usuario/login',body);
 }
 
 export const realizarCadastro = async(nome, email, senha) => {
@@ -14,7 +14,7 @@ export const realizarCadastro = async(nome, email, senha) => {
         senha:senha,
         nome:nome,
     }
-    return await api.post('/usuario',body);
+    return await api.post('usuario',body);
 }
 
 export const loginGoogle = async(nome, email, googleId) => {
@@ -23,5 +23,5 @@ export const loginGoogle = async(nome, email, googleId) => {
         googleId,
         name:nome,
     }
-    return await api.post('/usuario/login/google',body);
+    return await api.post('usuario/login/google',body);
 }

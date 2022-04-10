@@ -14,5 +14,5 @@ export const criarJogo = async(body, token)=>{
       'Authorization': `Bearer ${token}` 
     }
   }
-  return await api.post(`/jogos`,body, config);
+  return await api.post(`jogos`,body, config);
 }

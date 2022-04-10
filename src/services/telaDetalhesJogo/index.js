@@ -23,7 +23,7 @@ export const deletarAvaliacao = async(idJogo,idAvaliacao,token) => {
         'Authorization': `Bearer ${token}` 
       }
     }
-    return await api.delete(`/jogos/${idJogo}/avaliacao/${idAvaliacao}`, config);
+    return await api.delete(`jogos/${idJogo}/avaliacao/${idAvaliacao}`, config);
   }
 
   export const editarAvaliacao = async(idJogo,idAvaliacao, body, token) => {
@@ -32,12 +32,12 @@ export const deletarAvaliacao = async(idJogo,idAvaliacao,token) => {
         'Authorization': `Bearer ${token}` 
       }
     }
-    return await api.put(`/jogos/${idJogo}/avaliacao/${idAvaliacao}`,body, config);
+    return await api.put(`jogos/${idJogo}/avaliacao/${idAvaliacao}`,body, config);
   }
 
   export const pegarComentarioDoUsuarioDaqueleJogo = async(idJogo, idUsuario) => {
 
-    return await api.get(`/jogos/${idJogo}/comentarios/usuarios/${idUsuario}`);
+    return await api.get(`jogos/${idJogo}/comentarios/usuarios/${idUsuario}`);
 
   }
 
@@ -47,6 +47,6 @@ export const deletarAvaliacao = async(idJogo,idAvaliacao,token) => {
         'Authorization': `Bearer ${token}` 
       }
     }
-    return await api.delete(`/jogos/${idJogo}/comentarios/usuarios/${idUsuario}`, config);
+    return await api.delete(`jogos/${idJogo}/comentarios/usuarios/${idUsuario}`, config);
 
   }

@@ -33,7 +33,7 @@ const NavBar:React.FC<NavBarProp>= ({exibirPesquisa=true, ...rest}) =>{
     <>
       <Navbar fixed='top' bg="light" expand="lg" variant="light">
         <Container fluid>
-          <Navbar.Brand ><Image fluid src={logo} width={70} height={70} /></Navbar.Brand>
+        <Link to="/" className='itemMenu'><Navbar.Brand ><Image fluid src={logo} width={70} height={70} /> AutGamesFinder</Navbar.Brand></Link>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
