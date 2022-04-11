@@ -171,7 +171,7 @@ const Detalhes = () => {
 
             const response = await realizaAvaliacao(id, body, usuario!.token);
 
-            if(comentario.trim().length < 0){
+            if(!comentario){
                 setMsgErroText('Deixe seu comentário sobre o jogo!');
                 setMsgErro(true);
                 return;

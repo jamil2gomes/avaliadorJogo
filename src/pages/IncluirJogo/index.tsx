@@ -103,6 +103,7 @@ const IncluirJogo = () => {
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
+            
         }
         setValidatedCadastro(true);
 
@@ -114,6 +115,12 @@ const IncluirJogo = () => {
 
        if(plataformas.length === 0){
         setMsgErroText('Selecione pelo menos uma plataforma onde esse jogo pode ser encontrado.')
+        setMsgErro(true);
+        return;
+       }
+
+       if(sinopse.length === 0){
+        setMsgErroText('Por favor, campo sinopse é obrigatório!')
         setMsgErro(true);
         return;
        }
