@@ -1,11 +1,11 @@
 import api from "..";
 
 export const pegarGeneros = async() => {
-  return await api.get(`generos/`);
+  return await api.get(`/generos/`);
 }
 
 export const pegarPlataformas = async() => {
-  return await api.get(`plataformas/`);
+  return await api.get(`/plataformas/`);
 }
 
 export const criarJogo = async(body, token)=>{
@@ -14,5 +14,5 @@ export const criarJogo = async(body, token)=>{
       'Authorization': `Bearer ${token}` 
     }
   }
-  return await api.post(`jogos`,body, config);
+  return await api.post(`/jogos`,body, config);
 }

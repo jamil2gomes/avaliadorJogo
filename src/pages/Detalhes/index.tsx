@@ -51,7 +51,7 @@ import {
 import { pegarPlataformasDadoJogo, realizaAvaliacao, salvarComentario } from "../../services/avaliacao";
 import useSliderAvaliacao from "../../hooks/useSlider";
 import Comentario from "../../components/Comentario";
-import { isTemplateHead } from "typescript";
+;
 
 type Notas = { label:string, value:number, valueB?:number}
 const data = {
@@ -170,6 +170,8 @@ const Detalhes = () => {
             }
 
             const response = await realizaAvaliacao(id, body, usuario!.token);
+
+            if(comentario.trim().length < 0) throw new Error("Por favor, faça um comentário sobre sua avaliação");
 
             if (response.status === 201 && comentario.trim().length > 0) {
                 let bodyComentario = {
@@ -312,7 +314,9 @@ const Detalhes = () => {
 
             if (usuario) {
                 const response = await pegarAvaliacaoDoJogoDoUsuario(id, usuario.id);
+        
                 if (!response.data.mensagem) {
+                    
                     setNotasDoUsuario(response.data);
                 }
     
@@ -926,8 +930,9 @@ const Detalhes = () => {
                                                 }
                                             </Form.Select>
                                             <Form.Group className="mb-3" controlId="descricao">
-                                                <Form.Label>Comentário</Form.Label>
+                                                <Form.Label>Comentário *</Form.Label>
                                                 <Form.Control as="textarea" rows={4} style={{ resize: 'none' }} value={comentario} onChange={(e) => { setComentario(e.target.value) }} />
+                                                <Form.Text className="text-muted">Não esqueça de deixar seu comentário.</Form.Text>
                                             </Form.Group>
 
                                             <Button

@@ -25,5 +25,5 @@ export const salvarComentario= async(idJogo, body, token) => {
       'Authorization': `Bearer ${token}` 
     }
   }
-  return await api.post(`jogos/${idJogo}/comentarios`, body, config);
+  return await api.post(`/jogos/${idJogo}/comentarios`, body, config);
 }
