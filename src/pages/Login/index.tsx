@@ -79,7 +79,7 @@ const Login = ({ location }: { location?: string }) => {
             try {
                 setLoading(true);
                 await signIn(email, senha);
-                navigate(location ? location: '/')
+                navigate('/')
                 window.location.href = window.location.href;
             } catch (error: any) {
                 setMsgErroText(`Ocorreu um erro ao logar. E-mail ou senha inválidos`);
@@ -102,7 +102,7 @@ const Login = ({ location }: { location?: string }) => {
         const {profileObj:{email, name, googleId}} = response;
         try {
             await signInGoogle(name, email, googleId );
-            navigate(location ? location: '/');
+            navigate('/');
             window.location.href = window.location.href;
         } catch (error:any) {
             setMsgErroText(`Ocorreu um erro ao logar.`);
