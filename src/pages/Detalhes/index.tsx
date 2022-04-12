@@ -667,7 +667,7 @@ const Detalhes = () => {
                                         {notasDoUsuario?.media &&
                                             <ListGroup.Item as="li" >
                                                 <div>Sua Nota</div>
-                                                <span className="notaMetrica" style={{ backgroundColor: retornaCorDaNota(infoMediaJogo?.media ?? 0.0) }}>{notasDoUsuario?.media ?? 0.0}</span>
+                                                <span className="notaMetrica" style={{ backgroundColor: retornaCorDaNota(Number(notasDoUsuario.media) ?? 0.0) }}>{notasDoUsuario.media ?? 0.0}</span>
                                             </ListGroup.Item>
                                         }
                                         </ListGroup>
