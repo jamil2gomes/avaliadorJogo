@@ -28,6 +28,7 @@ import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import Dialog, { Links } from '../../components/Popover';
 import SliderEstilizado from "../../components/Slider";
+import Comentario from "../../components/Comentario";
 
 //UTILITARIOS
 import { retornaCorDaNota } from "../../util";
@@ -38,22 +39,21 @@ import logo from "../../assets/jogogenerico.png";
 import "./detalhes.css";
 
 //INTERFACES, SERVICOS, HOOKS
-import { DetalhesJogo, MediaGeralJogo, MediasPorPlataforma, OptionProp } from "../../interfaces";
+import { DetalhesJogo, MediaGeralJogo, MediasPorPlataforma, OptionProp, Comentarios } from "../../interfaces";
 import {
     deletarAvaliacao,
     deletarComentario,
     editarAvaliacao,
     pegarAvaliacaoDoJogoDoUsuario,
+    pegarComentariosDoJogo,
     pegarDetalhesDoJogoPelo,
     pegarMediaDeAvaliacaoDoJogo,
     pegarMediaDeAvaliacaoDoJogoPorPlataformas,
 } from "../../services/telaDetalhesJogo";
 import { pegarPlataformasDadoJogo, realizaAvaliacao, salvarComentario } from "../../services/avaliacao";
 import useSliderAvaliacao from "../../hooks/useSlider";
-import Comentario from "../../components/Comentario";
-;
+import { ConteudoModal, Notas, NotasDoUsuario } from "./types";
 
-type Notas = { label:string, value:number, valueB?:number}
 const data = {
     default: [
         {
@@ -79,24 +79,13 @@ const data = {
     ],
 };
 
-type NotasDoUsuario = {
-    id: number;
-    audio: number;
-    feedback: number;
-    cores: number;
-    interface: number;
-    media: string;
-    'Usuario.Comentarios.id':number;
-    'Usuario.Comentarios.descricao':string;
-}
-type ConteudoModal = { titulo: string, conteudo: string, link: Links }
-
 const Detalhes = () => {
     const [loading, setLoading] = useState(false);
     const [loadingModal, setLoadingModal] = useState(false);
     const [msgErr, setMsgErro] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [comentario, setComentario] = useState("");
+    const [comentarios, setComentarios] = useState<Comentarios[]>([]);
    
     const [plataforma, setPlataforma] = useState(0);
     const [plataformas, setPlataformas] = useState<OptionProp[]>([]);
@@ -170,13 +159,7 @@ const Detalhes = () => {
             }
 
             const response = await realizaAvaliacao(id, body, usuario!.token);
-
-            if(!comentario){
-                setMsgErroText('Deixe seu comentário sobre o jogo!');
-                setMsgErro(true);
-                return;
-            }
-
+      
             if (response.status === 201 && comentario.trim().length > 0) {
                 let bodyComentario = {
                     descricao: comentario,
@@ -302,8 +285,10 @@ const Detalhes = () => {
         try {
             const detalhesJogo = await pegarDetalhesDoJogoPelo(id);
             const mediaJogo = await pegarMediaDeAvaliacaoDoJogo(id);
+            const comentariosJogo = await pegarComentariosDoJogo(id);
             const mediaPorPlataforma = await pegarMediaDeAvaliacaoDoJogoPorPlataformas(id);
             setMediaDoJogoPorPlataforma(mediaPorPlataforma.data.medias);
+            setComentarios(comentariosJogo.data);
             setJogo(detalhesJogo.data);
             setInfoMediaJogo(mediaJogo.data);
 
@@ -714,8 +699,8 @@ const Detalhes = () => {
                             </div>
                                 {/* COMENTARIOS SOBRE O JOGO */}
                                 <div className="containerComentarios">
-                                   {jogo.Comentarios &&
-                                      jogo.Comentarios.map((item)=>(
+                                   {comentarios &&
+                                      comentarios.map((item)=>(
                                         <Comentario
                                         key={item.id}
                                         autor={item.Usuario.nome}
@@ -936,7 +921,7 @@ const Detalhes = () => {
                                             <Form.Group className="mb-3" controlId="descricao">
                                                 <Form.Label>Comentário *</Form.Label>
                                                 <Form.Control as="textarea" rows={4} style={{ resize: 'none' }} value={comentario} onChange={(e) => { setComentario(e.target.value) }} />
-                                                <Form.Text className="text-muted">Não esqueça de deixar seu comentário.</Form.Text>
+                                                <Form.Text className="text-muted">Não esqueça de deixar seu comentário!</Form.Text>
                                             </Form.Group>
 
                                             <Button

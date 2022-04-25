@@ -5,6 +5,10 @@ export const pegarDetalhesDoJogoPelo = async(id) => {
     return await api.get(`/jogos/${id}`);
 }
 
+export const pegarComentariosDoJogo = async(id) => {
+  return await api.get(`/jogos/${id}/comentarios`);
+}
+
 export const pegarMediaDeAvaliacaoDoJogo = async(id) => {
     return await api.get(`/jogos/${id}/avaliacao`);
 }

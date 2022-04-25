@@ -60,7 +60,7 @@ const Home = () => {
                         <p style={{fontSize:'1.5rem'}}>agora você tem uma espaço para buscar, cadastrar e  avaliar jogos digitais
                         educacionais para crianças com autismo e recomendá-los para outros profissionais.</p>
                         </div>
-                        <Image src={professor} />
+                        <Image src={professor} width={400} height={400}/>
                 </div>
                     
                 </div>

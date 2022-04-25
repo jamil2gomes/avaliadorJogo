@@ -16,6 +16,15 @@ export interface MediaGeralJogo{
     }
 }
 
+export interface Comentarios {
+    id:number;
+    descricao:string;
+    createdAt:string
+    Usuario:{
+        nome:string
+    }
+}
+
 export interface MediasPorPlataforma{
     media: number;
     Plataforma:{descricao:string;};
@@ -35,7 +44,6 @@ export interface DetalhesJogo{
     jogo_url:string;
     Generos:Genero[],
     Plataformas: Plataforma[];
-    Comentarios: Comentario[];
 }
 
 
