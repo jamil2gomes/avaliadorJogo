@@ -1,9 +1,8 @@
-import React from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
-import controle from '../../assets/jogogenerico.png';
-import { JogoResumo } from "../../interfaces";
+import controle from 'assets/jogogenerico.png';
+import { JogoResumo } from "interfaces";
 import './itemjogo.css';
 
 const ItemJogo= ({data}:{data:JogoResumo}) => {

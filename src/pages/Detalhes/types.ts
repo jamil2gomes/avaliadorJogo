@@ -1,4 +1,4 @@
-import { Links } from "../../components/Popover"
+import { Links } from "components/Popover"
 
 export type Notas = { label:string, value:number, valueB?:number}
 export type ConteudoModal = { titulo: string, conteudo: string, link: Links }

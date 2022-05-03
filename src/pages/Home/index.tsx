@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { pegarTodosJogos } from "../../services/telaInicial";
-import professor from '../../assets/professor.png';
+import { pegarTodosJogos } from "services/telaInicial";
+import professor from 'assets/professor.png';
 //estilos
 import "./home.css";
 
 //componentes
 import Container from "react-bootstrap/Container";
-import Loading from "../../components/Loading";
-import ItemJogo from "../../components/ItemJogo";
+import Loading from "components/Loading";
+import ItemJogo from "components/ItemJogo";
 import Image    from 'react-bootstrap/Image';
-import { JogoResumo } from "../../interfaces";
-import MsgErro from "../../components/Modal/MsgErro";
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
+import { JogoResumo } from "interfaces";
+import MsgErro from "components/Modal/MsgErro";
+import NavBar from "components/NavBar";
+import Footer from "components/Footer";
 
 
 

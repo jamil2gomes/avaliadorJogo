@@ -4,15 +4,15 @@ import Select from "react-select";
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import "./incluirJogo.css";
-import NavBar from "../../components/NavBar";
-import Footer from "../../components/Footer";
-import { criarJogo, pegarGeneros, pegarPlataformas } from "../../services/incluirJogo";
-import MsgErro from "../../components/Modal/MsgErro";
-import Loading from "../../components/Loading";
-import { GeneroPlataformaRequest, OptionProp } from "../../interfaces";
+import NavBar from "components/NavBar";
+import Footer from "components/Footer";
+import { criarJogo, pegarGeneros, pegarPlataformas } from "services/incluirJogo";
+import MsgErro from "components/Modal/MsgErro";
+import Loading from "components/Loading";
+import { GeneroPlataformaRequest, OptionProp } from "interfaces";
 import { useNavigate } from "react-router-dom";
-import MsgSuccess from "../../components/Modal/MsgSuccess";
-import useAuth from "../../hooks/useAuth";
+import MsgSuccess from "components/Modal/MsgSuccess";
+import useAuth from "hooks/useAuth";
 
 const IncluirJogo = () => {
 
@@ -282,7 +282,7 @@ const IncluirJogo = () => {
 
                     <Form.Group controlId="urlJogo" className="mb-3">
                         <Form.Label>Url do jogo*</Form.Label>
-                        <Form.Control required value={urlJogo} onChange={(e)=>setUrlJogo(e.target.value)} size="lg" type="text" placeholder="Insira a url da imagem da capa do jogo" />
+                        <Form.Control required value={urlJogo} onChange={(e)=>setUrlJogo(e.target.value)} size="lg" type="text" placeholder="Insira a url do jogo" />
                         <Form.Text className="text-muted">Link de onde o jogo pode ser achado.</Form.Text>
                         <Form.Control.Feedback type="invalid">A url do jogo é obrigatório</Form.Control.Feedback>
                     </Form.Group>

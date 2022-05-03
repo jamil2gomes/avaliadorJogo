@@ -1,20 +1,20 @@
 import {useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
+import useAuth from 'hooks/useAuth';
 //Componentes
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Image from 'react-bootstrap/Image';
-import MsgErro from '../../components/Modal/MsgErro';
-import Loading from '../../components/Loading';
+import MsgErro from 'components/Modal/MsgErro';
+import Loading from 'components/Loading';
 import GoogleLogin,{GoogleLoginResponse, GoogleLoginResponseOffline} from 'react-google-login';
 
 //Imagens, Serviços, Estilos
-import criancas from '../../assets/criancas.png';
+import criancas from 'assets/criancas.png';
 import './login.css';
-import { realizarCadastro } from '../../services/usuario';
+import { realizarCadastro } from 'services/usuario';
 
 
 const Login = ({ location }: { location?: string }) => {

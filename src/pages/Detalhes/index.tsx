@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "hooks/useAuth";
 //componentes
 import {
     Radar,
@@ -19,27 +19,27 @@ import Accordion from "react-bootstrap/Accordion";
 import Badge from "react-bootstrap/Badge";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
-import Loading from "../../components/Loading";
+import Loading from "components/Loading";
 import Modal from 'react-bootstrap/Modal';
-import MsgErro from "../../components/Modal/MsgErro";
-import MsgQuestion from '../../components/Modal/MsgQuestion';
-import MsgSuccess from '../../components/Modal/MsgSuccess';
-import Footer from "../../components/Footer";
-import NavBar from "../../components/NavBar";
-import Dialog, { Links } from '../../components/Popover';
-import SliderEstilizado from "../../components/Slider";
-import Comentario from "../../components/Comentario";
+import MsgErro from "components/Modal/MsgErro";
+import MsgQuestion from 'components/Modal/MsgQuestion';
+import MsgSuccess from 'components/Modal/MsgSuccess';
+import Footer from "components/Footer";
+import NavBar from "components/NavBar";
+import Dialog, { Links } from 'components/Popover';
+import SliderEstilizado from "components/Slider";
+import Comentario from "components/Comentario";
 
 //UTILITARIOS
 import { retornaCorDaNota } from "../../util";
 
 //IMAGENS, ESTILOS
 import { RiInformationLine } from "react-icons/ri";
-import logo from "../../assets/jogogenerico.png";
+import logo from "assets/jogogenerico.png";
 import "./detalhes.css";
 
 //INTERFACES, SERVICOS, HOOKS
-import { DetalhesJogo, MediaGeralJogo, MediasPorPlataforma, OptionProp, Comentarios } from "../../interfaces";
+import { DetalhesJogo, MediaGeralJogo, MediasPorPlataforma, OptionProp, Comentarios } from "interfaces";
 import {
     deletarAvaliacao,
     deletarComentario,
@@ -49,9 +49,9 @@ import {
     pegarDetalhesDoJogoPelo,
     pegarMediaDeAvaliacaoDoJogo,
     pegarMediaDeAvaliacaoDoJogoPorPlataformas,
-} from "../../services/telaDetalhesJogo";
-import { pegarPlataformasDadoJogo, realizaAvaliacao, salvarComentario } from "../../services/avaliacao";
-import useSliderAvaliacao from "../../hooks/useSlider";
+} from "services/telaDetalhesJogo";
+import { pegarPlataformasDadoJogo, realizaAvaliacao, salvarComentario } from "services/avaliacao";
+import useSliderAvaliacao from "hooks/useSlider";
 import { ConteudoModal, Notas, NotasDoUsuario } from "./types";
 
 const data = {

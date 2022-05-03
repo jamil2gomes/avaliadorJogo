@@ -8,11 +8,11 @@ import DropdownButton  from "react-bootstrap/DropdownButton";
 import Dropdown from 'react-bootstrap/Dropdown'
 import FormControl, { FormControlProps } from 'react-bootstrap/FormControl';
 import Image from 'react-bootstrap/Image'
-import logo from '../../assets/logo.png';
+import logo from 'assets/logo.png';
 
 
 import "./navbar.css";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "hooks/useAuth";
 
 
 interface NavBarProp extends FormControlProps{

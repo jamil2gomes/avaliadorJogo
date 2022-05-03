@@ -1,16 +1,16 @@
 import {Routes, Route, Navigate } from "react-router-dom";
 
 // PAGES
-import App from "../App";
-import Home from "../pages/Home";
-import Detalhes from "../pages/Detalhes";
-import IncluirJogo from "../pages/IncluirJogo";
+import App from "App";
+import Home from "pages/Home";
+import Detalhes from "pages/Detalhes";
+import IncluirJogo from "pages/IncluirJogo";
 
-import Login from "../pages/Login";
-import TermosDeUso from "../pages/TermosDeUso";
-import { AuthProvider } from "../Auth/AuthProvider";
-import RequireAuth from "../Auth/RequireAuth";
-import PoliticaPrivacidade from "../pages/PoliticaDePrivacidade";
+import Login from "pages/Login";
+import TermosDeUso from "pages/TermosDeUso";
+import { AuthProvider } from "Auth/AuthProvider";
+import RequireAuth from "Auth/RequireAuth";
+import PoliticaPrivacidade from "pages/PoliticaDePrivacidade";
 
 const Rotas = () => {
 
