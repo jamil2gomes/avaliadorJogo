@@ -44,7 +44,13 @@ https://user-images.githubusercontent.com/24705347/163265821-14fd2899-f2b1-4ce6-
   <li> Estudo dirigido na elaboração dos pesos de importância nas recomendações utilizadas na aplicação: Atualmente é realizada uma média aritmética no cálculo da nota, que não é muito recomendado, pois mesmo que haja várias avaliações positivas ainda há um grande peso das avaliações negativas que pode resultar na diminuição drástica na média geral do jogo; </li>
   <li>Estudo dirigido na adição de novas recomendações de avaliação;</li>
   <li>Autenticador de email ao cadastrar usuário;</li>
-  <li>Uso de um slideshow para exibição dos jogos na tela inicial;</li>
-  <li>Padronização dos cards dos jogos na tela inicial.</li>
+  <li>Uso de um slideshow para exibição dos jogos na tela inicial.</li>
 </ul>
+
+<h2>Considerações</h2>
+<p>Todo o projeto, tanto o front quanto o back, foram feitos em um prazo de 3 semanas, devido a isso, algumas boas práticas acabaram sendo não usadas. Diante disso, peço desculpas e relevem alguma coisa no código que fere as boas práticas ou padrões de projeto web.
+</p>
+<p>Caso queiram sugerir melhorias, fiquem a vontade. Todas as critícas são bem vindas.</p>
+<p>Segue o <a href="mailto:jamil.lanister@hotmail.com?subject=Melhorias no projeto TCC Aut Games Finder">email</a> para contato, que também pode ser visto no readme do meu perfil</p>
+
 
