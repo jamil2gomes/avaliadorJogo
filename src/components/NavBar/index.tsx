@@ -8,7 +8,7 @@ import DropdownButton  from "react-bootstrap/DropdownButton";
 import Dropdown from 'react-bootstrap/Dropdown'
 import FormControl, { FormControlProps } from 'react-bootstrap/FormControl';
 import Image from 'react-bootstrap/Image'
-import logo from 'assets/logo.png';
+import logo from 'assets/icons8-joystick-100.png';
 
 
 import "./navbar.css";
