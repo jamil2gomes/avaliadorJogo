@@ -24,6 +24,9 @@ https://user-images.githubusercontent.com/24705347/163265821-14fd2899-f2b1-4ce6-
 
 <p> A diretrizes utilizadas como base avaliativa do jogo na plataforma foi baseada no projeto <a href="https://gaia.wiki.br/"  target="_blank">GAIA</a>, um conjunto aberto e colaborativo de 28 recomendações de acessibilidade web focado nos aspectos do autismo, abordando desde a escrita de conteúdo até recursos programáveis.</p>
 
+<h2>Base inspiradora do front-end</h2>
+<p> Toda a base na elaboração do front-end foi inspirado pelo site <a href="https://notadogame.com/" target="_blank">Nota Do Game</a>.</p>
+
 <h2>Instalar o projeto</h2>
 
 <p>Atualmente o projeto está apontando para o link do heroku então não precisa ter necessariamente um banco de dados local para que funcione. 
