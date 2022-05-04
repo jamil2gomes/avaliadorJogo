@@ -1,4 +1,4 @@
-p {
+.paragrafoIndentado {
     text-indent: 30px;
     text-align: justify;
 }
