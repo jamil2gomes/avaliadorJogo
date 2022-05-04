@@ -26,9 +26,9 @@ const ItemJogo= ({data}:{data:JogoResumo}) => {
         `}
       </style>
          <Card border="light" className="itemJogo">
-          <Card.Img  alt={`Imagem do jogo ${data.nome}`} src={data.imagem_url ?? controle} width={180} height={180} />
+          <Card.Img className="coverImage" alt={`Imagem do jogo ${data.nome}`} src={data.imagem_url ?? controle}/>
           <Card.Body>
-            <Card.Title> {data.nome.length > 19 ? `${data.nome.substring(0,19)}...`: data.nome} </Card.Title>
+            {data.nome.length > 16 ? `${data.nome.substring(0,16)}...`: data.nome}
           </Card.Body>
           <Card.Footer style={{backgroundColor:'transparent'}} className="d-flex flex-row-reverse">
           <Button 
