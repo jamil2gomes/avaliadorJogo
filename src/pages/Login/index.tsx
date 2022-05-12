@@ -110,9 +110,11 @@ const Login = ({ location }: { location?: string }) => {
         }
     }
 
-    const onFailure = (error:any) =>{
+    const onFailure = (erro:any) =>{
+       if(erro.error !== "popup_closed_by_user"){
         setMsgErroText(`Ocorreu um erro ao logar.`);
         setMsgErro(true);
+       }
     }
 
 
